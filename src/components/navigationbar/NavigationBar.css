@@ -1,0 +1,39 @@
+.toolbar-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .left-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  .center-section {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .right-section {
+
+    display: flex;
+    align-items: center;
+  }
+
+    .search-bar {
+        border-radius: 5px;
+        width: 40%;
+        background-color: rgba(162, 178, 192, 0.484);
+    }
+
+
+
+
+    .home-button,
+    .add-products-button {
+        text-decoration: underline;
+    }
+
+    .logout-button {
+        background-color: red;
+    }
