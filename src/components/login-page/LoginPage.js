@@ -1,8 +1,64 @@
 import React from "react";
+import  { useState,useEffect } from 'react';
 import './LoginPage.css';
 import LockIcon from '@mui/icons-material/Lock';
 
-function LoginPage() {
+import { Link, useNavigate } from "react-router-dom";
+import NavigationBar from "../navigationbar/NavigationBar";
+
+function LoginPage(){
+    const navigate = useNavigate();
+    const [logged, setLogged] = useState(0);
+    const ecommerceurl = "http://localhost:8080/api/auth";
+    //alert(ecommerceurl);
+    const [username, setUsername] = useState("");
+        const [password, setPassword] = useState("");
+    const handleLogin = async () => {
+      console.log(1);
+      const formData = new FormData(document.getElementById("loginform"));
+      try {
+        //alert(formData.get("fname"));   
+        const response = await  fetch(ecommerceurl+"/signin", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+      
+                username: formData.get("username"),
+              password: formData.get("password"),
+              
+            }),
+        });
+        console.log(3);
+    //alert(response);
+    console.log(response);
+    if(!response.ok) {
+      console.log(4);
+       throw new Error("Error");
+    }
+    const data = await response.json();
+    console.log(5);
+    console.log(data);
+    //alert(data);
+    setLogged(1);
+  }
+    catch(error) {
+      alert(error);
+    }  
+}   
+useEffect(() => {
+  if (logged === 1) {
+      localStorage.setItem("isLoggedIn",true);
+      {var isLoggedIn = localStorage.getItem("isLoggedIn") === "true" ? true : false;
+      var isAdmin = localStorage.getItem("isAdmin") === "true" ? true : false;}
+      
+      navigate('/home');
+  }
+} ,[logged]);
+
+
+
     return(
         <div className="login-container">
 
@@ -11,12 +67,14 @@ function LoginPage() {
                 <h2>Sign In</h2>
             </div>
 
-            <div className="form-container">
-                <input type="email" placeholder="Email Address *" required/>
-                <input type="password" placeholder="Password *" required/>
-                <button id="signin-button">SIGN IN</button>
-                <a href="/signup" id='signup-link'>Don't have an account? Sign Up</a>
-            </div>
+            <form id="loginform">
+                <div className="form-container">
+                    <input type="email" name="username" placeholder="Email Address *" autoComplete="current-username" required value={username} onChange={(e) => setUsername(e.target.value)} />
+                    <input type="password" name="password" placeholder="Password *" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <button type="button" onClick={handleLogin}>SIGN IN</button>
+                    <Link to="/signup" id='signup-link'>Don't have an account? Sign Up</Link>
+                </div>
+            </form>
 
             <div className="footer-copyright">
                 <p>Copyright © <a href="https://www.upgrad.com">upGrad</a> 2021.</p>
@@ -24,6 +82,6 @@ function LoginPage() {
 
         </div>
     )
-}
+    }
 
 export default LoginPage;

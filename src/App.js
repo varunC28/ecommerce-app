@@ -4,7 +4,7 @@ import React from 'react';
 import NavigationBar from './components/navigationbar/NavigationBar';
 import LoginPage from './components/login-page/LoginPage';
 import SignUpPage from './components/signup-page/SignupPage';
-import AddProductsPage from './components/addproducts-paeg/AddProductsPage';
+import Home from './components/home/Home';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
@@ -23,12 +23,12 @@ function App() {
 
   return (
     <Router>
-      <NavigationBar isLoggedIn={true} isAdmin={true} />
+      <NavigationBar isLoggedIn={false} isAdmin={true} />
       <Routes>
         <Route path="/" element={<RedirectToLogin />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/add-products" element={<AddProductsPage />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </Router>
   );

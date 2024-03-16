@@ -20,54 +20,6 @@ const NavigationBar = ({ isLoggedIn, isAdmin }) => {
     navigate.push('/login');
   };
 
-  const handleSignIn = () => {
-    // Send sign-in request to backend
-    fetch("/api/auth/signin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: "yourUsername",
-        password: "yourPassword",
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.token) {
-          // Redirect to products page after successful sign-in
-          navigate("/products");
-        } else {
-          // Handle sign-in error
-        }
-      })
-      .catch((error) => {
-        // Handle network error
-      });
-  };
-
-  const handleSignUp = () => {
-    // Send sign-up request to backend
-    fetch("/api/auth/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: "yourEmail",
-        password: "yourPassword",
-        // Add other sign-up data as required by your backend
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle sign-up response
-        console.log(data.message);
-      })
-      .catch((error) => {
-        // Handle network error
-      });
-  };
 
   const handleSearch = () => {
     // Send search query to backend
@@ -126,10 +78,10 @@ const NavigationBar = ({ isLoggedIn, isAdmin }) => {
             </>
           ) : (
             <>
-              <Button color="inherit" component={Link} to="/login" onClick={handleSignIn}>
+              <Button color="inherit" component={Link} to="/login" >
                 Log In
               </Button>
-              <Button color="inherit" component={Link} to="/signup" onClick={handleSignUp}>
+              <Button color="inherit" component={Link} to="/signup">
                 Sign Up
               </Button>
             </>
