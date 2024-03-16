@@ -6,7 +6,7 @@ function SignUpPage() {
   return (
     <div className="signup-container">
       <div className="logo-container">
-        <img src={LockIcon} alt="Lock Logo" className="lock-logo" />
+        <LockIcon className='lock-logo'/>
         <h2>Sign Up</h2>
       </div>
       <div className="form-container">
@@ -15,7 +15,7 @@ function SignUpPage() {
         <input type="email" placeholder="Email Address *" required/>
         <input type="password" placeholder="Password *" required/>
         <input type="password" placeholder="Confirm Password *" required/>
-        <button>SIGN UP</button>
+        <button id="singup-button">SIGN UP</button>
         <a href="/login" id='login-link'>Already have an account? Sign in</a>
       </div>
       <div className="footer-copyright">

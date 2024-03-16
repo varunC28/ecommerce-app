@@ -7,14 +7,14 @@ function LoginPage() {
         <div className="login-container">
 
             <div className="logo-container">
-                <img src={LockIcon} alt="Lock Logo" className="lock-logo" />
+                <LockIcon className="lock-logo"/>
                 <h2>Sign In</h2>
             </div>
 
             <div className="form-container">
                 <input type="email" placeholder="Email Address *" required/>
                 <input type="password" placeholder="Password *" required/>
-                <button>SIGN IN</button>
+                <button id="signin-button">SIGN IN</button>
                 <a href="/signup" id='signup-link'>Don't have an account? Sign Up</a>
             </div>
 

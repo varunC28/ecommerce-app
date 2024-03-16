@@ -21,6 +21,7 @@ const AddProductsPage = ({ isLoggedIn, isAdmin }) => {
       const response = await fetch('/api/products');
       if (response.ok) {
         const data = await response.json();
+        // console.log(data);
         setProducts(data);
       } else {
         console.error('Failed to fetch products');
@@ -73,6 +74,7 @@ const AddProductsPage = ({ isLoggedIn, isAdmin }) => {
         <MenuItem value="priceLowToHigh">Price Low to High</MenuItem>
         <MenuItem value="newest">Newest</MenuItem>
       </Select>
+
 
       {products.map((product) => (
         <Card key={product.id}>

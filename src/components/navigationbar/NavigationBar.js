@@ -17,7 +17,7 @@ const NavigationBar = ({ isLoggedIn, isAdmin }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleLogout = () => {
-    navigate.push("/login");
+    navigate.push('/login');
   };
 
   const handleSignIn = () => {
@@ -94,19 +94,21 @@ const NavigationBar = ({ isLoggedIn, isAdmin }) => {
             upGrad Eshop
           </Typography>
         </div>
-        <div className="center-section">
-          <InputBase
-            placeholder="   Search... " 
-            className="search-bar" 
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            endAdornment={
-              <IconButton color="inherit" onClick={handleSearch}>
-                <SearchIcon />
-              </IconButton>
-            }
-          />
-        </div>
+        {isLoggedIn && (  // Conditionally render the search bar only if user is logged in
+          <div className="center-section">
+            <InputBase
+              placeholder="   Search... " 
+              className="search-bar" 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              endAdornment={
+                <IconButton color="inherit" onClick={handleSearch}>
+                  <SearchIcon />
+                </IconButton>
+              }
+            />
+          </div>
+        )}
         <div className="right-section">
           {isLoggedIn ? (
             <>
