@@ -1,20 +1,46 @@
-import React from 'react';
-import { Card, CardContent, Typography, Button } from '@mui/material';
+import React, { useState } from 'react';
+import { Card, CardContent, Typography, Button, Dialog, DialogTitle, DialogContent, DialogActions, Snackbar, Alert, TextField } from '@mui/material';
 import { ShoppingCart, Edit, Delete } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 const ProductCard = ({ product, isAdmin }) => {
   const { id, name, image, price, description } = product;
+  const navigate = useNavigate();
+
+  // Delete state
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
+  const [deleteSuccessMessage, setDeleteSuccessMessage] = useState('');
 
   const handleBuyClick = () => {
     // Handle buy button click
   };
 
   const handleEditClick = () => {
-    // Handle edit button click
+    navigate(`/modify-product/${id}`);
   };
 
-  const handleDeleteClick = () => {
-    // Handle delete button click
+  const handleDeleteClick = (product) => {
+    setProductToDelete(product);
+    setDeleteDialogOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    try {
+      // Perform deletion action here, e.g., send delete request to server
+      // Example: const response = await fetch(`/api/products/${productToDelete.id}`, { method: 'DELETE' });
+      
+      // Assuming deletion is successful
+      setDeleteSuccessMessage(`Product ${productToDelete.name} deleted successfully`);
+      setDeleteDialogOpen(false);
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      // Handle error if deletion fails
+    }
+  };
+
+  const cancelDelete = () => {
+    setDeleteDialogOpen(false);
   };
 
   return (
@@ -28,10 +54,31 @@ const ProductCard = ({ product, isAdmin }) => {
         {isAdmin && (
           <>
             <Button onClick={handleEditClick}><Edit /> Edit</Button>
-            <Button onClick={handleDeleteClick}><Delete /> Delete</Button>
+            <Button onClick={() => handleDeleteClick(product)}><Delete /> Delete</Button>
           </>
         )}
       </CardContent>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={deleteDialogOpen} onClose={cancelDelete}>
+        <DialogTitle>Delete Product</DialogTitle>
+        <DialogContent>
+          <Typography>Are you sure you want to delete {productToDelete?.name}?</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={confirmDelete}>Confirm</Button>
+          <Button onClick={cancelDelete}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Delete Success Message */}
+      {deleteSuccessMessage && (
+        <Snackbar open={!!deleteSuccessMessage} autoHideDuration={6000} onClose={() => setDeleteSuccessMessage('')}>
+          <Alert onClose={() => setDeleteSuccessMessage('')} severity="success">
+            {deleteSuccessMessage}
+          </Alert>
+        </Snackbar>
+      )}
     </Card>
   );
 };

@@ -7,6 +7,7 @@ import SignUpPage from './components/signup-page/SignupPage';
 import Home from './components/home/Home';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import AddProductsPage from './components/add-products-page/AddProductsPage';
 
 function App() {
 
@@ -23,12 +24,13 @@ function App() {
 
   return (
     <Router>
-      <NavigationBar isLoggedIn={false} isAdmin={true} />
+      <NavigationBar isLoggedIn={true} isAdmin={true} />
       <Routes>
         <Route path="/" element={<RedirectToLogin />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/add-products" element={<AddProductsPage/>} />
       </Routes>
     </Router>
   );
