@@ -1,4 +1,4 @@
-import React, { useState }  from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -9,17 +9,17 @@ import {
 } from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
-import "./NavigationBar.css"; 
-import SearchIcon from '@mui/icons-material/Search';
+import "./NavigationBar.css";
+import SearchIcon from "@mui/icons-material/Search";
 
-const NavigationBar = ({ isLoggedIn, isAdmin }) => {
+
+const NavigationBar = ({ isLoggedIn, isAdmin}) => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleLogout = () => {
-    navigate.push('/login');
+    navigate('/login');
   };
-
 
   const handleSearch = () => {
     // Send search query to backend
@@ -34,7 +34,6 @@ const NavigationBar = ({ isLoggedIn, isAdmin }) => {
       });
   };
 
-
   return (
     <AppBar position="static">
       <Toolbar className="toolbar-container">
@@ -46,11 +45,11 @@ const NavigationBar = ({ isLoggedIn, isAdmin }) => {
             upGrad Eshop
           </Typography>
         </div>
-        {isLoggedIn && (  // Conditionally render the search bar only if user is logged in
+        {isLoggedIn && (
           <div className="center-section">
             <InputBase
-              placeholder="   Search... " 
-              className="search-bar" 
+              placeholder="   Search... "
+              className="search-bar"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               endAdornment={

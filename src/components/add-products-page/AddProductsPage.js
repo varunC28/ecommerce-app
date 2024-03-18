@@ -15,7 +15,8 @@ function AddProductsPage() {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const isModifyPage = location.pathname === "/modify-product";
+  const isModifyPage = location && location.pathname === "/modify-product";
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
