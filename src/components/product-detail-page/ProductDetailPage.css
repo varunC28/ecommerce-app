@@ -4,14 +4,48 @@
     margin-top: 60px;
 }
 
-#iphone {
+/* #iphone {
     height: 500px;
     width: 500px;
     padding: 10px;
-}
+} */
 
 .product-info-container {
     display: flex;
     flex-direction: column;
     align-items: start;
+    width: 800px;
+}
+
+.place-order-button {
+    background-color: #3f51b5 ;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.name-quantity {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 500px;
+}
+
+.input-quantity input {
+    border: none;
+}
+
+.input-quantity {
+    position: relative;
+    border: 2px solid darkgray;
+    padding: 7px;
+    width: 200px;
+}
+
+.input-quantity span {
+    position: absolute;
+    top: -7px;
+    font-size: x-small;
+    background-color: white;
+    padding: 3px;
 }

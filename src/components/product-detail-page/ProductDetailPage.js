@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import "./ProductDetailPage.css"
 import CategoryTabs from '../category-tabs/CategoryTabs';
+import { red } from '@mui/material/colors';
 
 function ProductDetailsPage() {
   const { id } = useParams();
@@ -38,19 +39,26 @@ function ProductDetailsPage() {
             <img src={product.imageUrl} alt={product.name} />
           </div>
           <div className="product-info-container">
+            <div className="name-quantity">
             <h2>{product.name}</h2>
-            <p>Available Quantity: {product.quantity}</p>
-            <p>Category: {product.category}</p>
+            <span>Available Quantity: {product.quantity}</span>
+            </div>
+            <p>Category: <b>{product.category}</b></p>
             <p>Description: {product.description}</p>
-            <p>Price: ${product.price}</p>
+            <p style={{color:"red",fontSize:"20px"}}>₹ {product.price}</p>
+            <div className="input-quantity">
+            <span>Enter Quantity</span>
             <input
               type="number"
               value={quantity}
               onChange={(e) => setQuantity(parseInt(e.target.value))}
               min="1"
               max={product.quantity} // Set maximum quantity as available quantity
+              placeholder='Enter Quantity'
+              required
             />
-            <button onClick={handleOrder}>PLACE ORDER</button>
+            </div>
+            <button className="place-order-button" onClick={handleOrder}>PLACE ORDER</button>
           </div>
         </div>
       ) : (

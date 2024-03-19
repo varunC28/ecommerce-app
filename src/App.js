@@ -36,7 +36,7 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/home" element={<Home />} />
         <Route path="/add-products" element={<AddProductsPage isModifyPage={false}/>} />
-        <Route path="/edit-products" element={<AddProductsPage isModifyPage={true}/>} />
+        <Route path="/modify-product/:id" element={<AddProductsPage isModifyPage={true}/>} />
         <Route path="/product-detail-page/:id" element={<ProductDetailsPage/>} />
       </Routes>
     </Router>

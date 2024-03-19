@@ -20,6 +20,15 @@ function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  useEffect(() => {
+    setIsLoggedIn(false);
+    setIsAdmin(false);
+    setAuthUser(null);
+    localStorage.removeItem("IsLoggedIn");
+    localStorage.removeItem("IsAdmin");
+    localStorage.removeItem("AuthUser");},[]);
+
+
   const handleLogin = async () => {
     const formData = new FormData(document.getElementById("loginform"));
     try {
@@ -34,7 +43,6 @@ function LoginPage() {
           password: formData.get("password"),
         }),
       });
-      console.log(3);
       console.log(response);
       if (!response.ok) {
         console.log(4);
@@ -48,6 +56,10 @@ function LoginPage() {
       // We are setting the user role by default to Admin we need to change this if backend code returns proper role
       setIsAdmin(true);
       setAuthUser({"USERTOKEN":data['token']});
+      localStorage.setItem("IsLoggedIn",true);
+      localStorage.setItem("IsAdmin",true);
+      localStorage.setItem("AuthUser",JSON.stringify({"USERTOKEN":data['token']}));
+      navigate("/home");
     } catch (error) {
       alert(error);
     }

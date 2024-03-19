@@ -5,8 +5,10 @@ import { Card, CardContent, Typography, Button, Dialog, DialogTitle, DialogConte
 import { ShoppingCart, Edit, Delete } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import './ProductCard.css'; // Import the CSS file
+import {useAuth }  from '../../contexts/AuthContext';
 
-const ProductCard = ({ product, isAdmin }) => {
+
+const ProductCard = ({ product}) => {
   const { id, name, imageUrl, price, description } = product;
   const navigate = useNavigate();
 
@@ -14,7 +16,14 @@ const ProductCard = ({ product, isAdmin }) => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
   const [deleteSuccessMessage, setDeleteSuccessMessage] = useState('');
-
+  const ecommerceurl = "http://localhost:8080/api/products";
+  const {authUser, 
+    setAuthUser,
+    isLoggedIn,
+    setIsLoggedIn,
+    isAdmin,
+    setIsAdmin
+  } = useAuth();
   // 
 
   // useEffect(() => {
@@ -52,14 +61,32 @@ const ProductCard = ({ product, isAdmin }) => {
     setDeleteDialogOpen(true);
   };
 
+
+
+  
   const confirmDelete = async () => {
+    
     try {
       // Perform deletion action here, e.g., send delete request to server
       // Example: const response = await fetch(`/api/products/${productToDelete.id}`, { method: 'DELETE' });
-      
+      const auth = "Bearer "+ authUser["USERTOKEN"];
+      const response = await fetch(ecommerceurl+"/"+id, {
+        
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+
+          "Authorization": auth,
+
+        }
+      });
+      if (!response.ok) {
+        throw new Error("Failed to delete product");
+      }
       // Assuming deletion is successful
       setDeleteSuccessMessage(`Product ${productToDelete.name} deleted successfully`);
       setDeleteDialogOpen(false);
+      setProductToDelete(null);
     } catch (error) {
       console.error('Error deleting product:', error);
       // Handle error if deletion fails

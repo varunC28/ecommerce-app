@@ -30,8 +30,13 @@ const NavigationBar = () => {
     setIsLoggedIn(false);
     setIsAdmin(false);
     setAuthUser(null);
+    localStorage.removeItem("IsLoggedIn");
+    localStorage.removeItem("IsAdmin");
+    localStorage.removeItem("AuthUser");
+    
     navigate('/login');
   };
+
 
   const handleSearch = () => {
     // Send search query to backend

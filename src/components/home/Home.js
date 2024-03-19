@@ -1,4 +1,3 @@
-// Home.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
@@ -44,9 +43,9 @@ const Home = () => {
     setSortingOption(newSortBy);
   };
 
-  const handleProductClick = (productId) => {
-    // Redirect to product details page
-    navigate(`/products/${productId}`);
+  const handleDeleteProduct = (productId) => {
+    // Remove the deleted product from the products array
+    setProducts(products.filter(product => product.id !== productId));
   };
 
   return (
@@ -56,12 +55,17 @@ const Home = () => {
       </div>
       <br />
       <div className="sort">
-      <span id="sorting-dropdown-label">Sort By:</span>
+        <span id="sorting-dropdown-label">Sort By:</span>
         <SortingDropdown onSortChange={handleSortingChange} />
       </div>
       <div className="product-cards">
         {products.map((product) => (
-          <ProductCard key={product.id} product={product} isAdmin={isAdmin} />
+          <ProductCard
+            key={product.id}
+            product={product}
+            isAdmin={isAdmin}
+            onDeleteProduct={handleDeleteProduct} // Pass the delete function
+          />
         ))}
       </div>
     </div>
