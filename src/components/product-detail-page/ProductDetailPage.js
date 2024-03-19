@@ -1,6 +1,8 @@
 // ProductDetailsPage.js
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import "./ProductDetailPage.css"
+import CategoryTabs from '../category-tabs/CategoryTabs';
 
 function ProductDetailsPage() {
   const { id } = useParams();
@@ -8,12 +10,17 @@ function ProductDetailsPage() {
   const [quantity, setQuantity] = useState(1); // Default quantity is 1
 
   useEffect(() => {
-    // Fetch product details using id
-    fetch(`/api/products/${id}`)
+    console.log('Fetching product details...');
+    console.log(id);
+    fetch(`http://localhost:8080/api/products/${id}`)
       .then(response => response.json())
-      .then(data => setProduct(data))
+      .then(data => {
+        console.log('Received product data:', data);
+        setProduct(data);
+      })
       .catch(error => console.error('Error fetching product:', error));
   }, [id]);
+  
 
   const handleOrder = () => {
     // Handle placing order with selected quantity
@@ -22,10 +29,13 @@ function ProductDetailsPage() {
 
   return (
     <div>
+      <div className="category">
+        <CategoryTabs/>
+      </div>
       {product ? (
         <div className="product-details-container">
           <div className="product-image-container">
-            <img src={product.imageURL} alt={product.name} />
+            <img src={product.imageUrl} alt={product.name} />
           </div>
           <div className="product-info-container">
             <h2>{product.name}</h2>

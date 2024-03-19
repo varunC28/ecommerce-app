@@ -3,8 +3,17 @@ import { useState, useEffect } from "react";
 import "./LoginPage.css";
 import LockIcon from "@mui/icons-material/Lock";
 import { Link, useNavigate } from "react-router-dom";
+import {useAuth }  from '../../contexts/AuthContext';
 
 function LoginPage() {
+  const {authUser, 
+    setAuthUser,
+    isLoggedIn,
+    setIsLoggedIn,
+    isAdmin,
+    setIsAdmin
+  } = useAuth();
+
   const navigate = useNavigate();
   const [logged, setLogged] = useState(0);
   const ecommerceurl = "http://localhost:8080/api/auth";
@@ -35,6 +44,10 @@ function LoginPage() {
       console.log(5);
       console.log(data);
       setLogged(1);
+      setIsLoggedIn(true);
+      // We are setting the user role by default to Admin we need to change this if backend code returns proper role
+      setIsAdmin(true);
+      setAuthUser({"USERTOKEN":data['token']});
     } catch (error) {
       alert(error);
     }

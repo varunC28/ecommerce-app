@@ -12,7 +12,7 @@ const SortingDropdown = ({ onSortChange }) => {
 
   return (
     <FormControl>
-      <InputLabel id="sorting-dropdown-label">Sort By</InputLabel>
+      
       <Select
         labelId="sorting-dropdown-label"
         id="sorting-dropdown"

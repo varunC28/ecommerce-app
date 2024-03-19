@@ -1,28 +1,32 @@
+// Home.js
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, Typography, Button, ToggleButtonGroup, ToggleButton, MenuItem, Select } from '@mui/material';
-import { ShoppingCart, Edit, Delete } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
+import CategoryTabs from '../category-tabs/CategoryTabs';
+import ProductCard from '../product-card/ProductCard';
+import SortingDropdown from '../sorting-dropdown/SortingDropdown';
+import './Home.css';
 
-const AddProductsPage = ({ isLoggedIn, isAdmin }) => {
+const Home = () => {
+  const { isAdmin } = useAuth();
+  const ecommerceurl = "http://localhost:8080/api/products";
+
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortingOption, setSortingOption] = useState('default');
   const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch products and categories from backend
     fetchProducts();
-    fetchCategories();
   }, []);
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('/api/products');
+      const response = await fetch(ecommerceurl);
       if (response.ok) {
         const data = await response.json();
-        // console.log(data);
         setProducts(data);
+        console.log(data);
       } else {
         console.error('Failed to fetch products');
       }
@@ -31,70 +35,37 @@ const AddProductsPage = ({ isLoggedIn, isAdmin }) => {
     }
   };
 
-  const fetchCategories = async () => {
-    try {
-      const response = await fetch('/api/products/categories');
-      if (response.ok) {
-        const data = await response.json();
-        setCategories(data);
-      } else {
-        console.error('Failed to fetch categories');
-      }
-    } catch (error) {
-      console.error('Error fetching categories:', error);
-    }
+  const handleCategoryChange = (newCategory) => {
+    // Handle category change here
+    console.log("Selected category:", newCategory);
   };
 
-  const handleCategoryChange = (event, newCategory) => {
-    setSelectedCategory(newCategory);
-  };
-
-  const handleSortingChange = (event) => {
-    setSortingOption(event.target.value);
+  const handleSortingChange = (newSortBy) => {
+    setSortingOption(newSortBy);
   };
 
   const handleProductClick = (productId) => {
     // Redirect to product details page
-    navigate.push(`/products/${productId}`);
+    navigate(`/products/${productId}`);
   };
 
   return (
-    <div>
-      <ToggleButtonGroup value={selectedCategory} exclusive onChange={handleCategoryChange}>
-        {categories.map((category) => (
-          <ToggleButton key={category} value={category}>
-            {category}
-          </ToggleButton>
+    <div className="container">
+      <div className="category">
+        <CategoryTabs onSelectCategory={handleCategoryChange} />
+      </div>
+      <br />
+      <div className="sort">
+      <span id="sorting-dropdown-label">Sort By:</span>
+        <SortingDropdown onSortChange={handleSortingChange} />
+      </div>
+      <div className="product-cards">
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} isAdmin={isAdmin} />
         ))}
-      </ToggleButtonGroup>
-
-      <Select value={sortingOption} onChange={handleSortingChange}>
-        <MenuItem value="default">Default</MenuItem>
-        <MenuItem value="priceHighToLow">Price High to Low</MenuItem>
-        <MenuItem value="priceLowToHigh">Price Low to High</MenuItem>
-        <MenuItem value="newest">Newest</MenuItem>
-      </Select>
-
-
-      {products.map((product) => (
-        <Card key={product.id}>
-          <CardContent>
-            <img src={product.image} alt={product.name} />
-            <Typography variant="h5">{product.name}</Typography>
-            <Typography variant="subtitle1">{product.price}</Typography>
-            <Typography variant="body2">{product.description}</Typography>
-            <Button onClick={() => handleProductClick(product.id)}><ShoppingCart /> Buy</Button>
-            {isAdmin && (
-              <>
-                <Button><Edit /> Edit</Button>
-                <Button><Delete /> Delete</Button>
-              </>
-            )}
-          </CardContent>
-        </Card>
-      ))}
+      </div>
     </div>
   );
 };
 
-export default AddProductsPage;
+export default Home;

@@ -36,7 +36,7 @@ function SignUpPage() {
           firstName: formData.fname,
           lastName: formData.lname,
           contactNumber: formData.contact,
-          role: ["USER"],
+          role: ["admin"],
         }),
       });
       if (!response.ok) {

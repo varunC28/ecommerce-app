@@ -12,17 +12,30 @@ import { Link, useNavigate } from "react-router-dom";
 import "./NavigationBar.css";
 import SearchIcon from "@mui/icons-material/Search";
 
+import { useAuth } from "../../contexts/AuthContext"
 
-const NavigationBar = ({ isLoggedIn, isAdmin}) => {
+
+const NavigationBar = () => {
+  const {authUser, 
+    setAuthUser,
+    isLoggedIn,
+    setIsLoggedIn,
+    isAdmin,
+    setIsAdmin
+  } = useAuth()
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleLogout = () => {
+    setIsLoggedIn(false);
+    setIsAdmin(false);
+    setAuthUser(null);
     navigate('/login');
   };
 
   const handleSearch = () => {
     // Send search query to backend
+    console.log("search")
     fetch(`/api/products?search=${searchQuery}`)
       .then((response) => response.json())
       .then((data) => {
@@ -63,12 +76,12 @@ const NavigationBar = ({ isLoggedIn, isAdmin}) => {
         <div className="right-section">
           {isLoggedIn ? (
             <>
-              <Button color="inherit" component={Link} to="/" className="home-button">
-                Home
+              <Button color="inherit" component={Link} to="/home" className="home-button">
+                <u>Home</u>
               </Button>
               {isAdmin && (
                 <Button color="inherit" component={Link} to="/add-products" className="add-products-button">
-                  Add Products
+                  <u>Add Products</u>
                 </Button>
               )}
               <Button color="inherit" onClick={handleLogout} className="logout-button">
@@ -78,10 +91,10 @@ const NavigationBar = ({ isLoggedIn, isAdmin}) => {
           ) : (
             <>
               <Button color="inherit" component={Link} to="/login" >
-                Log In
+                <u>Log In</u>
               </Button>
               <Button color="inherit" component={Link} to="/signup">
-                Sign Up
+                <u>Sign Up</u>
               </Button>
             </>
           )}

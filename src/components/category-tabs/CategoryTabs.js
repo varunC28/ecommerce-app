@@ -1,14 +1,18 @@
+// CategoryTabs.js
 import React, { useState, useEffect } from 'react';
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
 import axios from 'axios';
 
 const CategoryTabs = ({ onSelectCategory }) => {
+  const ecommerceurl = "http://localhost:8080/api/products/categories";
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
 
+  console.log(onSelectCategory);
+
   useEffect(() => {
     // Fetch categories from the backend
-    axios.get('/api/products/categories')
+    axios.get(ecommerceurl)
       .then(response => {
         setCategories(['all', ...response.data]);
       })
