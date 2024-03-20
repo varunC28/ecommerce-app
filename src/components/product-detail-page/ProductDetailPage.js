@@ -1,6 +1,6 @@
 // ProductDetailsPage.js
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import "./ProductDetailPage.css"
 import CategoryTabs from '../category-tabs/CategoryTabs';
 import { red } from '@mui/material/colors';
@@ -22,11 +22,15 @@ function ProductDetailsPage() {
       .catch(error => console.error('Error fetching product:', error));
   }, [id]);
   
+  const navigate = useNavigate();
 
   const handleOrder = () => {
+    navigate('/address-page');
     // Handle placing order with selected quantity
+ 
     console.log(`Ordered ${quantity} units of ${product.name}`);
   };
+  
 
   return (
     <div>
@@ -40,8 +44,8 @@ function ProductDetailsPage() {
           </div>
           <div className="product-info-container">
             <div className="name-quantity">
-            <h2>{product.name}</h2>
-            <span>Available Quantity: {product.quantity}</span>
+            <h1>{product.name}</h1>
+            <span>Available Quantity: {product.availableItems}</span>
             </div>
             <p>Category: <b>{product.category}</b></p>
             <p>Description: {product.description}</p>
@@ -58,6 +62,7 @@ function ProductDetailsPage() {
               required
             />
             </div>
+            <br />
             <button className="place-order-button" onClick={handleOrder}>PLACE ORDER</button>
           </div>
         </div>

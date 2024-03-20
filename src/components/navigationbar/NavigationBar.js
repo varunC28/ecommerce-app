@@ -37,19 +37,10 @@ const NavigationBar = () => {
     navigate('/login');
   };
 
-
   const handleSearch = () => {
     // Send search query to backend
     console.log("search")
-    fetch(`/api/products?search=${searchQuery}`)
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle search results
-        console.log(data);
-      })
-      .catch((error) => {
-        // Handle network error
-      });
+    navigate('/search/'+searchQuery);
   };
 
   return (
@@ -70,8 +61,8 @@ const NavigationBar = () => {
               className="search-bar"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              endAdornment={
-                <IconButton color="inherit" onClick={handleSearch}>
+              startAdornment={
+                <IconButton style={{color:"white"}} onClick={handleSearch}>
                   <SearchIcon />
                 </IconButton>
               }

@@ -2,35 +2,51 @@
 import React, { useState, useEffect } from 'react';
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
 import axios from 'axios';
+import { Link, useNavigate } from "react-router-dom";
 
-const CategoryTabs = ({ onSelectCategory }) => {
+const CategoryTabs = () => {
   const ecommerceurl = "http://localhost:8080/api/products/categories";
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('all');
-
-  console.log(onSelectCategory);
+  const [options, setOptions] = useState([]);
+  const [selectedButton, setSelectedButton] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
+
     // Fetch categories from the backend
     axios.get(ecommerceurl)
       .then(response => {
-        setCategories(['all', ...response.data]);
+        console.log(response.data);
+        var x = ['all', ...response.data];
+        console.log(x);
+        const formattedOptions = x.map(item => ({
+          value: item,
+          label: item
+        }));
+        setOptions(formattedOptions);
       })
       .catch(error => {
         console.error('Error fetching categories:', error);
       });
   }, []);
 
-  const handleCategoryChange = (event, newCategory) => {
-    setSelectedCategory(newCategory);
-    onSelectCategory(newCategory);
+  useEffect(() => {
+    // Set initial value to the first option once options are fetched
+    if (options.length > 0) {
+      setSelectedButton(options[0].value);
+    }
+  }, [options]);
+
+  const handleButtonChange = (event, newButtonValue) => {
+    //alert(newButtonValue);
+    setSelectedButton(newButtonValue);
+    navigate("/category/"+newButtonValue);
   };
 
   return (
-    <ToggleButtonGroup value={selectedCategory} onChange={handleCategoryChange} aria-label="category tabs">
-      {categories.map(category => (
-        <ToggleButton key={category} value={category} aria-label={category}>
-          {category}
+    <ToggleButtonGroup value={selectedButton} onChange={handleButtonChange} exclusive>
+      {options.map((option, index) => (
+        <ToggleButton key={index} value={option.value}>
+          {option.label}
         </ToggleButton>
       ))}
     </ToggleButtonGroup>

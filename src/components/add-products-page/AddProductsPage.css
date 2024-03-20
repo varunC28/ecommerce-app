@@ -36,3 +36,20 @@
     cursor: pointer;
     margin-top: 5px;
   }
+
+
+.name-field, .select-category, .manufacturer-field, .available-items-field
+, .price-field, .image-url-field, .description-field {
+    position: relative;
+}
+
+.form-container span {
+    position: absolute;
+    top: -8px;
+    left: 8px;
+    font-size: x-small;
+    background-color: white;
+    color: gray;
+    padding: 3px;
+    z-index: 100;
+}
