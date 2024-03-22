@@ -7,7 +7,7 @@ import "./AddProductsPage.css";
 import { useAuth } from "../../contexts/AuthContext";
 
 function AddProductsPage({ isModifyPage }) {
-  const ecommerceurl = "http://localhost:8080/api/products";
+  const ecommerceurl = "/api/products";
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [options, setOptions] = useState([]);
@@ -26,15 +26,6 @@ function AddProductsPage({ isModifyPage }) {
     imageUrl: "",
     description: "",
   });
-
-  const {
-    authUser,
-    setAuthUser,
-    isLoggedIn,
-    setIsLoggedIn,
-    isAdmin,
-    setIsAdmin,
-  } = useAuth();
   const { id } = useParams();
   console.log("11");
   console.log("productId==" + id);
@@ -111,15 +102,45 @@ function AddProductsPage({ isModifyPage }) {
     }
   }, []);
 
+  const validateForm = () => {
+    if(formData.name.trim() === "") {
+      alert("Enter Product Name");
+      //document.getElementById("username").focus(); 
+      return false;
+    }
+    if(selectedOption === null || selectedOption.value==="") {
+      alert("Select Category");
+      //document.getElementById("username").focus(); 
+      return false;
+    }
+    if(formData.manufacturer=== "") {
+        alert("Enter Manufacturer Name");
+        //document.getElementById("username").focus(); 
+        return false;
+    }
+    if(formData.availableItems=== "") {
+      alert("Enter Available Quantity");
+      //document.getElementById("username").focus(); 
+      return false;
+    }
+    if(formData.price=== "") {
+      alert("Enter Price");
+      //document.getElementById("username").focus(); 
+      return false;
+    }
+    return true;
+  }
+
   const handleModifyProduct = async () => {
-    const auth = "Bearer " + authUser["USERTOKEN"];
     try {
+      if(!validateForm()) {
+        return ;
+      }
       const response = await fetch(ecommerceurl + "/" + formData.id, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-
-          Authorization: auth,
+          "X-Auth-Token": localStorage.getItem("USERTOKEN"),
         },
         body: JSON.stringify({
           name: formData.name,
@@ -146,32 +167,34 @@ function AddProductsPage({ isModifyPage }) {
     }
   };
 
-{/* Modify Success Message */}
-{successMessage && (
-  <Snackbar
-    className="delete-success-message"
-    open={!!successMessage}
-    autoHideDuration={100000000}
-    onClose={() => successMessage("")}
-  >
-    <Alert onClose={() => successMessage("")} severity="success">
-      {successMessage}
-    </Alert>
-  </Snackbar>
-)}
+  {
+    /* Modify Success Message */
+  }
+  {
+    successMessage && (
+      <Snackbar
+        className="delete-success-message"
+        open={!!successMessage}
+        autoHideDuration={100000000}
+        onClose={() => successMessage("")}
+      >
+        <Alert onClose={() => successMessage("")} severity="success">
+          {successMessage}
+        </Alert>
+      </Snackbar>
+    );
+  }
 
   const handleAddProduct = async () => {
-    //const auth = "Bearer "+ localStorage.getItem("USERTOKEN");
-    //console.log(auth);
-
-    const auth = "Bearer " + authUser["USERTOKEN"];
     try {
+      if(!validateForm()) {
+        return ;
+      }
       const response = await fetch(ecommerceurl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-
-          Authorization: auth,
+          "X-Auth-Token": localStorage.getItem("USERTOKEN"),
         },
         body: JSON.stringify({
           name: formData.name,
@@ -244,6 +267,7 @@ function AddProductsPage({ isModifyPage }) {
             <input
               type="number"
               name="availableItems"
+              min={1}
               required
               value={formData.availableItems}
               onChange={handleChange}
@@ -254,6 +278,7 @@ function AddProductsPage({ isModifyPage }) {
             <input
               type="number"
               name="price"
+              min={0}
               required
               value={formData.price}
               onChange={handleChange}
@@ -264,14 +289,14 @@ function AddProductsPage({ isModifyPage }) {
             <input
               type="text"
               name="imageUrl"
-              placeholder={isModifyPage && "IImage URL"}
+              placeholder={isModifyPage && "Image URL"}
               required
               value={formData.imageUrl}
               onChange={handleChange}
             />
           </div>
           <div className="description-field">
-          {!isModifyPage && <span>Discription</span>}
+            {!isModifyPage && <span>Discription</span>}
             <input
               type="text"
               name="description"

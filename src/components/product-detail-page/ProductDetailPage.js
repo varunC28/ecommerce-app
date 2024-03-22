@@ -3,17 +3,16 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import "./ProductDetailPage.css"
 import CategoryTabs from '../category-tabs/CategoryTabs';
-import { red } from '@mui/material/colors';
 
 function ProductDetailsPage() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const [quantity, setQuantity] = useState(1); // Default quantity is 1
+  const [quantity, setQuantity] = useState("");
 
   useEffect(() => {
     console.log('Fetching product details...');
     console.log(id);
-    fetch(`http://localhost:8080/api/products/${id}`)
+    fetch(`/api/products/${id}`)
       .then(response => response.json())
       .then(data => {
         console.log('Received product data:', data);
@@ -25,10 +24,13 @@ function ProductDetailsPage() {
   const navigate = useNavigate();
 
   const handleOrder = () => {
-    navigate('/address-page');
+    if(quantity==="") {
+      alert("Enter Quantity");
+      return;
+    }
+    navigate('/address-page/' + id + "/" + quantity);
     // Handle placing order with selected quantity
- 
-    console.log(`Ordered ${quantity} units of ${product.name}`);
+    // console.log(`Ordered ${quantity} units of ${product.name}`);
   };
   
 
@@ -58,7 +60,6 @@ function ProductDetailsPage() {
               onChange={(e) => setQuantity(parseInt(e.target.value))}
               min="1"
               max={product.quantity} // Set maximum quantity as available quantity
-              placeholder='Enter Quantity'
               required
             />
             </div>

@@ -1,57 +1,176 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import "./PlaceOrderPage.css";
-import { CheckBox } from "@mui/icons-material";
+import { useAuth } from "../../contexts/AuthContext";
 
 function OrderDetails({ selectedAddress }) {
   const navigate = useNavigate();
+  const { productid, quantity, addressid } = useParams();
+  const [product, setProduct] = useState(null);
+  const [address, setAddress] = useState(null);
+  const [successMessage, setSuccessMessage] = useState("");
 
-  const handleConfirmOrder = () => {
-    // Implement logic to place order
-    // console.log('Order confirmed:', product);
-    // Redirect to products page
-    navigate("/products");
+  useEffect(() => {
+    console.log("Fetching product details...");
+    console.log(productid);
+    fetch(`/api/products/${productid}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Received product data:", data);
+        setProduct(data);
+      })
+      .catch((error) => console.error("Error fetching product:", error));
+  }, []);
+
+  useEffect(() => {
+    fetchAddressDetails();
+  }, []);
+
+  const { authUser, isLoggedIn, isAdmin } = useAuth();
+  const fetchAddressDetails = async () => {
+    console.log(1);
+    try {
+      const response = await fetch(`/api/addresses/${addressid}`, {
+        method: "GET",
+
+        headers: {
+          "Content-Type": "application/json",
+          "X-Auth-Token": localStorage.getItem("USERTOKEN"),
+        },
+      });
+      console.log(3);
+      if (response.ok) {
+        console.log(4);
+        const data = await response.json();
+        setAddress(data);
+        console.log(data);
+      } else {
+        console.error("Failed to fetch address");
+      }
+    } catch (error) {
+      console.error("Error fetching address:", error);
+    }
+  };
+
+  const handleConfirmOrder = async () => {
+    try {
+
+      console.log("Quantity "+ quantity);
+      console.log("\nUser Id "+ localStorage.getItem("USERID"));
+      console.log("\nProduct Id "+ productid);
+      console.log("\nAddress Id "+ addressid);
+
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+
+          'X-Auth-Token':     localStorage.getItem("USERTOKEN"),
+
+
+        },
+        body: JSON.stringify({
+          quantity: parseInt(quantity),
+          user:localStorage.getItem("USERID") ,
+          product: productid,
+          address: addressid
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to add order");
+      }
+
+      //const data = await response.json();
+      setSuccessMessage(
+        'Order placed successfully'
+      );
+    } catch (error) {
+      alert(error);
+    }
+    navigate("/home");
+
+    
   };
 
   return (
     <>
-    <div className="upper-sec ">
-    <i class="fa-solid fa-circle-check"></i><span>items</span> 
-    <div className="1"><hr style={{width:"400px"}}/></div>
-    <span style={{backgroundColor:"red",height:"20px",width:"20px",borderRadius:"50%",margin:"0px"}}>2</span>
-    <i class="fa-solid fa-circle-check"></i><span>items</span> 
-    <div className="1"><hr style={{width:"400px"}}/></div>
-    <i class="fa-solid fa-circle-check"></i><span>items</span>
-    </div>
+      <div className="U-section">
+        <i
+          className="fa-solid fa-circle-check"
+          style={{ color: "#3f51b5", fontSize: "20px" }}
+        ></i>
+        <span>Items</span>
+        <div>
+          <hr />
+        </div>
+        <i
+          className="fa-solid fa-circle-check"
+          style={{ color: "#3f51b5", fontSize: "20px" }}
+        ></i>
+        <span>Select Address</span>
+        <div className="1">
+          <hr />
+        </div>
+        <span
+          style={{
+            backgroundColor: "#3f51b5",
+            color: "white",
+            padding: "0.5px",
+            height: "20px",
+            width: "20px",
+            borderRadius: "50%",
+            textAlign: "center",
+          }}
+        >
+          3
+        </span>
+        <span>Confirm Order</span>
+      </div>
       <div className="order-details-container">
         <div className="L-section">
-          <p>
-            <b>Name:</b>
-          </p>
-          <p>
-            <b>Quantity:</b>
-          </p>
-          <p>
-            <b>Category:</b>
-          </p>
-          <p>
-            <b>Description:</b>Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Magni consectetur doloremque animi incidunt
-            reprehenderit tempora inventore, quae blanditiis architecto?
-            Quisquam repellendus numquam accusamus et iste. Praesentium ut
-            incidunt tempora omnis.
-          </p>
-          <p>
-            <b>Total Price:</b> ₹PRICE
-          </p>
+          {product !== null && (
+            <>
+              <p>
+                <b>Name:</b>
+                {product.name}
+              </p>
+              <p>
+                <b>Quantity:</b>
+                {quantity}
+              </p>
+              <p>
+                <b>Category:</b>
+                {product.category}
+              </p>
+              <p>
+                <b>Description:</b>
+                {product.description}
+              </p>
+              <p>
+                <b>Total Price:</b> ₹ {product.price * quantity}
+              </p>
+            </>
+          )}
         </div>
         <div className="R-section">
           <h2>Address Details</h2>
-          <p>Apt. 419 3469 Ronnie Knoll, Bayerborough, WY 03399-8652</p>
+          {address !== null && (
+            <>
+              <p>{address.name}</p>
+              <p>{address.contactNumber}</p>
+              <p>{address.city}</p>
+              <p>{address.landmark}</p>
+              <p>{address.street}</p>
+              <p>{address.state}</p>
+              <p>{address.zipcode}</p>
+            </>
+          )}
         </div>
       </div>
       <div className="place-order-buttons">
-        <button style={{backgroundColor:"white", color:"black"}}>BACK</button>
+        <button style={{ backgroundColor: "white", color: "black" }}>
+          BACK
+        </button>
         <button onClick={handleConfirmOrder}>PLACE ORDER</button>
       </div>
     </>

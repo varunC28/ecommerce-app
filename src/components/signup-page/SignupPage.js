@@ -10,11 +10,12 @@ function SignUpPage() {
     lname: "",
     email: "",
     pwd: "",
+    conpwd: "",
     contact: "",
   });
   const [logged, setLogged] = useState(0);
   const navigate = useNavigate();
-  const ecommerceurl = "http://localhost:8080/api/auth";
+  const ecommerceurl = "/api/auth";
 
   const handleChange = (e) => {
     setFormData({
@@ -23,7 +24,57 @@ function SignUpPage() {
     });
   };
 
+  function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  }
+
   const handleSignUp = async () => {
+    if (formData.fname.trim() === "") {
+      alert("Enter First Name");
+      //document.getElementById("username").focus();
+      return;
+    }
+    if (formData.lname.trim() === "") {
+      alert("Enter Last Name");
+      //document.getElementById("username").focus();
+      return;
+    }
+
+    if (formData.email.trim() === "") {
+      alert("Enter Email ID");
+      //document.getElementById("username").focus();
+      return;
+    }
+    if (!validateEmail(formData.email.trim())) {
+      alert("Enter Proper Email ID");
+      return;
+    }
+    if (formData.pwd.trim() === "") {
+      alert("Enter Password");
+      //document.getElementById("username").focus();
+      return;
+    }
+    var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+    if (!passwordRegex.test(formData.pwd.trim())) {
+      alert("Enter Proper Password");
+      return;
+    }
+    if (formData.conpwd.trim() === "") {
+      alert("Enter Confirm Password");
+      //document.getElementById("username").focus();
+      return;
+    }
+    if (formData.conpwd.trim() !== formData.pwd.trim()) {
+      alert("Password and Confirm password is not matching.");
+      //document.getElementById("username").focus();
+      return;
+    }
+    if (formData.contact.trim() === "" || formData.contact.trim().length<10) {
+      alert("Enter Valid Contact Number");
+      //document.getElementById("username").focus();
+      return;
+    }
     try {
       const response = await fetch(ecommerceurl + "/signup", {
         method: "POST",
@@ -55,7 +106,6 @@ function SignUpPage() {
 
   return (
     <div className="signup-container">
-      
       <div className="logo-container">
         <LockIcon className="lock-logo" />
         <h2>Sign Up</h2>
@@ -101,8 +151,17 @@ function SignUpPage() {
           />
           <input
             type="password"
+            name="conpwd"
             placeholder="Confirm Password *"
             autoComplete="new-password"
+            value={formData.conpwd}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Contact Number *"
+            autoComplete="text"
             required
           />
 
@@ -117,10 +176,9 @@ function SignUpPage() {
 
       <div className="footer-copyright">
         <p>
-          Copyright © <a href="https://www.upgrad.com">upGrad</a> 2021.
+          Copyright ©️ <a href="https://www.upgrad.com">upGrad</a> 2021.
         </p>
       </div>
-
     </div>
   );
 }

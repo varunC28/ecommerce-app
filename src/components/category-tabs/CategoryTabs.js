@@ -1,7 +1,7 @@
 // CategoryTabs.js
-import React, { useState, useEffect } from 'react';
-import { ToggleButton, ToggleButtonGroup } from '@mui/material';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 const CategoryTabs = () => {
@@ -11,21 +11,21 @@ const CategoryTabs = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-
     // Fetch categories from the backend
-    axios.get(ecommerceurl)
-      .then(response => {
+    axios
+      .get(ecommerceurl)
+      .then((response) => {
         console.log(response.data);
-        var x = ['all', ...response.data];
+        var x = ["all", ...response.data];
         console.log(x);
-        const formattedOptions = x.map(item => ({
+        const formattedOptions = x.map((item) => ({
           value: item,
-          label: item
+          label: item,
         }));
         setOptions(formattedOptions);
       })
-      .catch(error => {
-        console.error('Error fetching categories:', error);
+      .catch((error) => {
+        console.error("Error fetching categories:", error);
       });
   }, []);
 
@@ -39,11 +39,17 @@ const CategoryTabs = () => {
   const handleButtonChange = (event, newButtonValue) => {
     //alert(newButtonValue);
     setSelectedButton(newButtonValue);
-    navigate("/category/"+newButtonValue);
+    if (newButtonValue !== null) {
+      navigate("/category/" + newButtonValue);
+    }
   };
 
   return (
-    <ToggleButtonGroup value={selectedButton} onChange={handleButtonChange} exclusive>
+    <ToggleButtonGroup
+      value={selectedButton}
+      onChange={handleButtonChange}
+      exclusive
+    >
       {options.map((option, index) => (
         <ToggleButton key={index} value={option.value}>
           {option.label}

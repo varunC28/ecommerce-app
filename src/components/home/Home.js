@@ -8,14 +8,10 @@ import './Home.css';
 
 const Home = () => {
   const location = useLocation();
-
   // Access URL parameters using useParams
   const { name } = useParams();
-
-
-
   const { isAdmin } = useAuth();
-  const ecommerceurl = "http://localhost:8080/api/products";
+  const ecommerceurl = "/api/products";
 
   const [products, setProducts] = useState([]);
   const [displayProducts, setDisplayProducts] = useState([]);
@@ -59,9 +55,6 @@ const Home = () => {
     } catch (error) {
       console.error('Error fetching products:', error);
     }
-    
-       
-      
   };
   
   useEffect(() => {

@@ -42,8 +42,8 @@ function App() {
         <Route path="/product-detail-page/:id" element={<ProductDetailsPage/>} />
         <Route path="/search/:name" element={<Home />} />
         <Route path="/category/:name" element={<Home />} />
-        <Route path="/address-page" element={<AddressPage/>} />
-        <Route path="/confirm-order" element={<PlaceOrderPage/>} />
+        <Route path="/address-page/:productid/:quantity" element={<AddressPage/>} />
+        <Route path="/confirm-order/:productid/:quantity/:addressid" element={<PlaceOrderPage/>} />
         
       </Routes>
     </Router>

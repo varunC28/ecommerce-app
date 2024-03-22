@@ -16,8 +16,7 @@ import { useAuth } from "../../contexts/AuthContext"
 
 
 const NavigationBar = () => {
-  const {authUser, 
-    setAuthUser,
+  const {
     isLoggedIn,
     setIsLoggedIn,
     isAdmin,
@@ -29,17 +28,18 @@ const NavigationBar = () => {
   const handleLogout = () => {
     setIsLoggedIn(false);
     setIsAdmin(false);
-    setAuthUser(null);
-    localStorage.removeItem("IsLoggedIn");
-    localStorage.removeItem("IsAdmin");
-    localStorage.removeItem("AuthUser");
+   
+    localStorage.clear();
     
     navigate('/login');
   };
 
   const handleSearch = () => {
     // Send search query to backend
-    console.log("search")
+    if(searchQuery.trim() == "") {
+      alert("Enter Product name");
+      return;
+    }
     navigate('/search/'+searchQuery);
   };
 

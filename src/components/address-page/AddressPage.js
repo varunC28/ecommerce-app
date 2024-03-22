@@ -1,12 +1,19 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import "./AddressPage.css";
 import Creatable from "react-select/creatable";
 import { useAuth } from "../../contexts/AuthContext";
 
 function AddressDetails() {
- const { authUser, isLoggedIn, isAdmin} = useAuth();
-const user = "admin";
+  const { authUser, isLoggedIn, isAdmin } = useAuth();
+  const [options, setOptions] = useState([]);
+  const [selectedAddress, setSelectedAddresss] = useState("");
+  const { productid, quantity } = useParams();
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    fetchAddress();
+  }, [navigate]); // Empty dependency array ensures useEffect only runs once on component mount
 
   const [address, setAddress] = useState({
     id: "",
@@ -17,11 +24,8 @@ const user = "admin";
     street: "",
     state: "",
     zipCode: "",
-    user: user
+    user: "",
   });
-  const navigate = useNavigate();
-
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,51 +35,145 @@ const user = "admin";
     }));
   };
 
-  const body = JSON.stringify(address);
-  console.log(body);
+  const handlenextclick = () => {
+    if (selectedAddress === "") {
+      alert("Select Address");
+      return;
+    } else {
+      navigate(
+        "/confirm-order/" + productid + "/" + quantity + "/" + selectedAddress
+      );
+    }
+  };
 
   const fetchAddress = async () => {
     try {
-        const auth = "Bearer " + authUser["USERTOKEN"];
-      const response = await fetch("http://localhost:8080/api/addresses" ,{
-        method: "POST",
+      const response = await fetch("/api/addresses", {
+        method: "GET",
 
         headers: {
           "Content-Type": "application/json",
-          Authorization: auth,
-
+          "X-Auth-Token": localStorage.getItem("USERTOKEN"),
         },
-        body:body
       });
+      console.log(3);
       if (response.ok) {
+        console.log(4);
         const data = await response.json();
-        console.log(data);
+        // Convert original options to new format
+        const dataoptions = data.map((option) => {
+          // Remove id and user properties from the object
+          const { id, user, ...rest } = option;
+          // Create label by stringifying the remaining properties
+          var add = "";
+
+          add += rest.name + "-->";
+          // add += rest.contactNumber + " ";
+          add += rest.city + ", ";
+          // add += rest.landmark + " ";
+          add += rest.street + " ";
+          // add += rest.state + " ";
+          // add += rest.zipcode + " ";
+
+          const label = add;
+          // Return the object with id and label properties
+          return { id, label };
+        });
+        console.log(dataoptions);
+        setOptions(dataoptions);
       } else {
-        console.error("Failed to fetch products");
+        console.error("Failed to fetch address");
       }
     } catch (error) {
       console.error("Error fetching products:", error);
     }
   };
 
-  const handleSaveAddress = () => {
+  const validateform = () => {
+    if (address.name.trim() === "") {
+      alert("Enter Name");
+      return false;
+    }
+    if (address.contactNumber.trim() === "" || address.contactNumber.trim().length<10) {
+      alert("Enter Valid Contact Number");
+      return false;
+    }
+    if (address.street.trim() === "") {
+      alert("Enter street");
+      return false;
+    }
+    if (address.city.trim() === "") {
+      alert("Enter City");
+      return false;
+    }
+    if (address.state.trim() === "") {
+      alert("Enter state");
+      return false;
+    }
+    if (address.zipCode.trim() === "") {
+      alert("Enter zipcode");
+      return false;
+    }
+    return true;
+  };
+  const handleSaveAddress = async () => {
+    if (!validateform()) {
+      return;
+    }
     // Implement logic to save address
-    fetchAddress();
-    console.log("Address saved:", address);
-    // Redirect to next step or page
-    navigate("/confirm-order");
+    try {
+      const response = await fetch("/api/addresses", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Auth-Token": localStorage.getItem("USERTOKEN"),
+        },
+        body: JSON.stringify({
+          name: address.name,
+          contactNumber: address.contactNumber,
+          city: address.city,
+          landmark: address.landmark,
+          street: address.street,
+          state: address.state,
+          zipcode: address.zipCode,
+          user: localStorage.getItem("USERID"),
+        }),
+      });
+      if (!response.ok) {
+        console.log(response.status);
+        throw new Error("Failed to add address");
+      }
+      await fetchAddress();
+      console.log(options);
+    } catch (error) {
+      console.log(error);
+      alert(error);
+    }
+  };
+
+  const handleAddress = (event) => {
+    setSelectedAddresss(event.target.value);
   };
 
   return (
     <div className="address-details-container">
-        <Creatable
-              name="category"
-        />
-        <br />
+      <select name="address" className="input-field" onChange={handleAddress}>
+        <option key="" value="">
+          Select Address
+        </option>
+
+        {/* Map over options array to dynamically add options */}
+        {options.map((option) => (
+          <option key={option.id} value={option.id}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+      <br />
       <h2>Add Address</h2>
       <div className="input-field">
         <input
-        placeholder="Name"
+          placeholder="Name *"
           type="text"
           name="name"
           value={address.name}
@@ -85,7 +183,7 @@ const user = "admin";
       </div>
       <div className="input-field">
         <input
-        placeholder="Contact Number"
+          placeholder="Contact Number *"
           type="text"
           name="contactNumber"
           value={address.contactNumber}
@@ -95,7 +193,7 @@ const user = "admin";
       </div>
       <div className="input-field">
         <input
-         placeholder="Street"
+          placeholder="Street *"
           type="text"
           name="street"
           value={address.street}
@@ -105,7 +203,7 @@ const user = "admin";
       </div>
       <div className="input-field">
         <input
-        placeholder="City"
+          placeholder="City *"
           type="text"
           name="city"
           value={address.city}
@@ -115,7 +213,7 @@ const user = "admin";
       </div>
       <div className="input-field">
         <input
-        placeholder="State"
+          placeholder="State *"
           type="text"
           name="state"
           value={address.state}
@@ -125,7 +223,7 @@ const user = "admin";
       </div>
       <div className="input-field">
         <input
-        placeholder="Landmark"
+          placeholder="Landmark"
           type="text"
           name="landmark"
           value={address.landmark}
@@ -135,7 +233,7 @@ const user = "admin";
       </div>
       <div className="input-field">
         <input
-        placeholder="Zip Code"
+          placeholder="Zip Code *"
           type="text"
           name="zipCode"
           value={address.zipCode}
@@ -145,12 +243,18 @@ const user = "admin";
       </div>
 
       <div className="input-field">
-      <button onClick={handleSaveAddress}>Save Address</button>
+        <button type="button" onClick={handleSaveAddress}>
+          Save Address
+        </button>
       </div>
-      
+
       <div className="next-button">
-      <button style={{backgroundColor:"white", color:"black"}}>Back</button>
-      <button >Next</button>
+        <button style={{ backgroundColor: "white", color: "black" }}>
+          Back
+        </button>
+        <button type="button" onClick={handlenextclick}>
+          Next
+        </button>
       </div>
     </div>
   );

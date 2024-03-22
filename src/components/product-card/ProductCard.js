@@ -27,7 +27,7 @@ const ProductCard = ({ product }) => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
   const [deleteSuccessMessage, setDeleteSuccessMessage] = useState("");
-  const ecommerceurl = "http://localhost:8080/api/products";
+  const ecommerceurl = "/api/products";
   const {
     authUser,
     setAuthUser,
@@ -36,16 +36,9 @@ const ProductCard = ({ product }) => {
     isAdmin,
     setIsAdmin,
   } = useAuth();
-  //
-
-  // useEffect(() => {
-  //   // Fetch products and categories from backend
-  //   fetchProducts();
-  // }, []);
-
   const fetchProducts = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/products/${id}");
+      const response = await fetch("/api/products/${id}");
       if (response.ok) {
         const data = await response.json();
         console.log(data);
@@ -76,14 +69,11 @@ const ProductCard = ({ product }) => {
   const confirmDelete = async () => {
     try {
       // Perform deletion action here, e.g., send delete request to server
-      // Example: const response = await fetch(`/api/products/${productToDelete.id}`, { method: 'DELETE' });
-      const auth = "Bearer " + authUser["USERTOKEN"];
       const response = await fetch(ecommerceurl + "/" + id, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-
-          Authorization: auth,
+          'X-Auth-Token':  localStorage.getItem("USERTOKEN"),
         },
       });
       if (!response.ok) {
