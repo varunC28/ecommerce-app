@@ -1,14 +1,15 @@
 .order-details-container {
     display: flex;
     margin: 5px 45px 5px 45px;
-    /* border: 1px solid black; */
     box-shadow: 1px 1px 1px 1px lightgray;
     border-radius: 5px;
+    margin-top: 50px;
 }
 
 .L-section {
     border-right: 1px solid lightgray;
     padding: 20px;
+    max-width: 900px;
 }
 
 .R-section {
@@ -19,6 +20,7 @@
 .place-order-buttons{
     display: flex;
     justify-content: center;
+    margin-top: 20px;
 }
 
 .place-order-buttons button {
@@ -32,10 +34,9 @@
     display:flex;
     height:50px;
     margin: 20px 45px 20px 45px;
-    box-shadow: 1px 1px 1px 1px lightgray;
-    border-radius: 5px;
     align-items: center;
     justify-content: center;
+    margin-top: 50px;
 }
 .U-section i,hr,span{
     margin-right: 10px ;
@@ -44,4 +45,5 @@
 hr{
     width: 400px;
 }
+
 

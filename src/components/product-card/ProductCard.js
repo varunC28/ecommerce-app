@@ -99,17 +99,19 @@ const ProductCard = ({ product }) => {
     <>
       <Card className="card">
         <img src={imageUrl} alt={name} className="image" />
+        <div className="name-price-description">
         <CardContent className="name-price">
-          <Typography variant="h6" className="name">
+          <Typography variant="h7" className="name">
             {name}
           </Typography>
-          <Typography variant="h6" className="price">
-            ₹ {price}
+          <Typography variant="h7" className="price">
+            ₹{price}
           </Typography>
         </CardContent>
         <Typography variant="body2" className="description">
           {description}
         </Typography>
+        </div>
         <div className="buttons">
           <Button
             variant="contained"
@@ -154,7 +156,7 @@ const ProductCard = ({ product }) => {
         <Snackbar
           className="delete-success-message"
           open={!!deleteSuccessMessage}
-          autoHideDuration={100000000}
+          autoHideDuration={6000}
           onClose={() => setDeleteSuccessMessage("")}
         >
           <Alert onClose={() => setDeleteSuccessMessage("")} severity="success">

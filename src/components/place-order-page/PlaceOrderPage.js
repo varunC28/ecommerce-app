@@ -87,7 +87,8 @@ function OrderDetails({ selectedAddress }) {
     } catch (error) {
       alert(error);
     }
-    navigate("/home");
+    navigate("/home", { state: { successMessage: "Order placed successfully" } });
+
 
     
   };
@@ -130,37 +131,33 @@ function OrderDetails({ selectedAddress }) {
         <div className="L-section">
           {product !== null && (
             <>
-              <p>
-                <b>Name:</b>
+              <h2>
                 {product.name}
+              </h2>
+              <p>
+                Quantity:        
+                <b> {quantity}</b>
               </p>
               <p>
-                <b>Quantity:</b>
-                {quantity}
+                Category: 
+                <b> {product.category}</b>
               </p>
               <p>
-                <b>Category:</b>
-                {product.category}
-              </p>
-              <p>
-                <b>Description:</b>
                 {product.description}
               </p>
-              <p>
-                <b>Total Price:</b> ₹ {product.price * quantity}
-              </p>
+              <h3 style={{color:"red"}}>
+                Total Price : ₹ {product.price * quantity}
+              </h3>
             </>
           )}
         </div>
         <div className="R-section">
-          <h2>Address Details</h2>
+          <h2>Address Details :</h2>
           {address !== null && (
             <>
               <p>{address.name}</p>
-              <p>{address.contactNumber}</p>
-              <p>{address.city}</p>
-              <p>{address.landmark}</p>
-              <p>{address.street}</p>
+              <p>Contact Number: {address.contactNumber}</p>
+              <p>{address.street}, {address.city}</p>
               <p>{address.state}</p>
               <p>{address.zipcode}</p>
             </>

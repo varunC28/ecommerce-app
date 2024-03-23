@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MenuItem, Select, FormControl, InputLabel } from '@mui/material';
+import './SortingDropdown.css';
 
 const SortingDropdown = ({ onSortChange }) => {
   const [sortBy, setSortBy] = useState('default');
@@ -11,7 +12,8 @@ const SortingDropdown = ({ onSortChange }) => {
   };
 
   return (
-    <FormControl>
+    <div className="sorting-container">
+      <FormControl>
       
       <Select
         labelId="sorting-dropdown-label"
@@ -25,6 +27,7 @@ const SortingDropdown = ({ onSortChange }) => {
         <MenuItem value="newest">Newest</MenuItem>
       </Select>
     </FormControl>
+    </div>
   );
 };
 

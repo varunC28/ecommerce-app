@@ -4,7 +4,6 @@ import Creatable from "react-select/creatable";
 import axios from "axios";
 import { Snackbar, Alert } from "@mui/material";
 import "./AddProductsPage.css";
-import { useAuth } from "../../contexts/AuthContext";
 
 function AddProductsPage({ isModifyPage }) {
   const ecommerceurl = "/api/products";
@@ -175,7 +174,7 @@ function AddProductsPage({ isModifyPage }) {
       <Snackbar
         className="delete-success-message"
         open={!!successMessage}
-        autoHideDuration={100000000}
+        autoHideDuration={6000}
         onClose={() => successMessage("")}
       >
         <Alert onClose={() => successMessage("")} severity="success">
@@ -222,6 +221,7 @@ function AddProductsPage({ isModifyPage }) {
   };
 
   return (
+    <>
     <div className="add-products-container">
       <div className="heading-container">
         <h1>{isModifyPage ? "Modify Product" : "Add Product"}</h1>
@@ -285,22 +285,22 @@ function AddProductsPage({ isModifyPage }) {
             />
           </div>
           <div className="image-url-field">
-            {!isModifyPage && <span>Image URL</span>}
+            {isModifyPage && <span>Image URL</span>}
             <input
               type="text"
               name="imageUrl"
-              placeholder={isModifyPage && "Image URL"}
+              placeholder={!isModifyPage && "Image URL"}
               required
               value={formData.imageUrl}
               onChange={handleChange}
             />
           </div>
           <div className="description-field">
-            {!isModifyPage && <span>Discription</span>}
+            {isModifyPage && <span>Discription</span>}
             <input
               type="text"
               name="description"
-              placeholder={isModifyPage && "Discription"}
+              placeholder={!isModifyPage && "Discription"}
               required
               value={formData.description}
               onChange={handleChange}
@@ -325,10 +325,21 @@ function AddProductsPage({ isModifyPage }) {
       </form>
 
       {successMessage && (
-        <div className="success-message">{successMessage}</div>
+        // <div className="success-message">{successMessage}</div>
+        <Snackbar
+          className="add-modify-success-message"
+          open={!!successMessage}
+          autoHideDuration={6000}
+          onClose={() => setSuccessMessage("")}
+        >
+          <Alert onClose={() => setSuccessMessage("")} severity="success">
+            {successMessage}
+          </Alert>
+        </Snackbar>
       )}
       {errorMessage && <div className="error-message">{errorMessage}</div>}
     </div>
+    </>
   );
 }
 

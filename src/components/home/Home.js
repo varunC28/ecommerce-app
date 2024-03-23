@@ -19,6 +19,15 @@ const Home = () => {
   const [sortingOption, setSortingOption] = useState('default');
   const [filterTerm, setFilterTerm] = useState('');
 
+  const [successMessage, setSuccessMessage] = useState("");
+
+  useEffect(() => {
+    // Check if state parameter exists
+    if (location.state && location.state.successMessage) {
+      setSuccessMessage(location.state.successMessage);
+    }
+  }, [location]);
+
   const navigate = useNavigate();
   const fetchDataAndContinue = async () => {
     console.log('Before fetching data');
@@ -62,7 +71,20 @@ const Home = () => {
   }, [navigate, location]);
 
   const handleSortingChange = (newSortBy) => {
-    setSortingOption(newSortBy);
+    if(newSortBy === "priceHighToLow" ) {
+      const sortedItems = [...displayProducts].sort((a, b) => b.price - a.price);
+      setDisplayProducts(sortedItems);
+
+    }
+    if(newSortBy === "priceLowToHigh" ) {
+      const sortedItems = [...displayProducts].sort((a, b) => a.price - b.price);
+      setDisplayProducts(sortedItems);
+    } 
+    if(newSortBy === "newest" ) {
+      const sortedItems = [...displayProducts].sort((a, b) => b.productId - b.productId);
+      setDisplayProducts(sortedItems);
+    } 
+    //setSortingOption(newSortBy);
   };
 
   const handleDeleteProduct = (productId) => {

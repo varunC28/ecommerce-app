@@ -22,5 +22,7 @@
     justify-content: space-around;
     margin: 50px;
   }
-  
-  
+
+  #sorting-dropdown-label {
+    margin-left: 110px;
+  }

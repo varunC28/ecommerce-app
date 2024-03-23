@@ -15,12 +15,14 @@
   .name-price {
     display: flex;
     justify-content: space-between;
-    padding: 16px;
+    padding: 10px;
+    font-size: large;
   }
   
   .description {
-    margin-top: 10px;
+    padding: 10px;
     color: darkgray;
+    margin-left: 6px !important;
   }
   
   .buttons {
@@ -32,4 +34,12 @@
     width: 100%;
     padding: 0px 5px 0px 5px;
   }
+
+  .name{
+    max-width: 170px;
+  }
   
+  .name-price-description {
+    max-height:190px; 
+    overflow-y: auto;
+  }

@@ -147,7 +147,6 @@ function AddressDetails() {
       console.log(options);
     } catch (error) {
       console.log(error);
-      alert(error);
     }
   };
 
@@ -156,10 +155,56 @@ function AddressDetails() {
   };
 
   return (
-    <div className="address-details-container">
-      <select name="address" className="input-field" onChange={handleAddress}>
+    <>
+<div className="address-details-container">
+
+<div className="U-section">
+        <i
+          className="fa-solid fa-circle-check"
+          style={{ color: "#3f51b5", fontSize: "20px", marginLeft:"15px" }}
+        ></i>
+        <span>Items</span>
+        <div>
+          <hr />
+        </div>
+        <span
+          style={{
+            backgroundColor: "#3f51b5",
+            color: "white",
+            padding: "0.5px",
+            height: "20px",
+            width: "20px",
+            borderRadius: "50%",
+            textAlign: "center",
+          }}
+        >
+          2
+        </span>
+        <span>Select Address</span>
+        <div className="1">
+          <hr />
+        </div>
+        <span
+          style={{
+            backgroundColor: "darkgray",
+            color: "white",
+            padding: "0.5px",
+            height: "20px",
+            width: "20px",
+            borderRadius: "50%",
+            textAlign: "center",
+          }}
+        >
+          3
+        </span>
+        <span style={{color:"darkgray"}}>Confirm Order</span>
+      </div>
+      
+      <div className="select-address-div">
+      <span>Select Address</span>
+      <select name="address" className="select-address" onChange={handleAddress}>
         <option key="" value="">
-          Select Address
+          Select
         </option>
 
         {/* Map over options array to dynamically add options */}
@@ -169,8 +214,11 @@ function AddressDetails() {
           </option>
         ))}
       </select>
-      <br />
+      </div>
+
+      <h3>-OR-</h3>
       <h2>Add Address</h2>
+      
       <div className="input-field">
         <input
           placeholder="Name *"
@@ -250,13 +298,15 @@ function AddressDetails() {
 
       <div className="next-button">
         <button style={{ backgroundColor: "white", color: "black" }}>
-          Back
+          BACK
         </button>
         <button type="button" onClick={handlenextclick}>
-          Next
+          NEXT
         </button>
       </div>
     </div>
+    </>
+    
   );
 }
 

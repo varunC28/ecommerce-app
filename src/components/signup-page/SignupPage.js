@@ -70,7 +70,7 @@ function SignUpPage() {
       //document.getElementById("username").focus();
       return;
     }
-    if (formData.contact.trim() === "" || formData.contact.trim().length<10) {
+    if (formData.contact.trim() === "" || formData.contact.trim().length !== 10) {
       alert("Enter Valid Contact Number");
       //document.getElementById("username").focus();
       return;
@@ -159,9 +159,12 @@ function SignUpPage() {
             required
           />
           <input
-            type="text"
+            type="number"
+            name="contact"
             placeholder="Contact Number *"
             autoComplete="text"
+            value={formData.contact}
+            onChange={handleChange}
             required
           />
 
