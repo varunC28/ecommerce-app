@@ -50,7 +50,7 @@ const NavigationBar = () => {
           <IconButton edge="start" color="inherit" aria-label="menu">
             <ShoppingCart />
           </IconButton>
-          <Typography variant="h6" style={{ marginLeft: 8 }}>
+          <Typography variant="h6" style={{ marginLeft: 8, fontSize:"large" }}>
             upGrad Eshop
           </Typography>
         </div>

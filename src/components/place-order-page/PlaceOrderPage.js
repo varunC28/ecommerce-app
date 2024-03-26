@@ -65,7 +65,7 @@ function OrderDetails({ selectedAddress }) {
         headers: {
           "Content-Type": "application/json",
 
-          'X-Auth-Token':     localStorage.getItem("USERTOKEN"),
+          'X-Auth-Token': localStorage.getItem("USERTOKEN"),
 
 
         },
@@ -88,9 +88,10 @@ function OrderDetails({ selectedAddress }) {
       alert(error);
     }
     navigate("/home", { state: { successMessage: "Order placed successfully" } });
+  };
 
-
-    
+  const goBack = () => {
+    window.history.back();
   };
 
   return (
@@ -165,7 +166,7 @@ function OrderDetails({ selectedAddress }) {
         </div>
       </div>
       <div className="place-order-buttons">
-        <button style={{ backgroundColor: "white", color: "black" }}>
+        <button style={{ backgroundColor: "white", color: "black" }} onClick={goBack}>
           BACK
         </button>
         <button onClick={handleConfirmOrder}>PLACE ORDER</button>

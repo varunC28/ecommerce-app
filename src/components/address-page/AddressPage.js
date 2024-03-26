@@ -154,6 +154,10 @@ function AddressDetails() {
     setSelectedAddresss(event.target.value);
   };
 
+  const goBack = () => {
+    window.history.back();
+  };
+
   return (
     <>
 <div className="address-details-container">
@@ -297,7 +301,7 @@ function AddressDetails() {
       </div>
 
       <div className="next-button">
-        <button style={{ backgroundColor: "white", color: "black" }}>
+        <button style={{ backgroundColor: "white", color: "black" }} onClick={goBack}>
           BACK
         </button>
         <button type="button" onClick={handlenextclick}>

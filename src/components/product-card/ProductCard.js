@@ -1,5 +1,3 @@
-// ProductCard.js
-
 import React, { useState } from "react";
 import {
   Card,
@@ -12,15 +10,14 @@ import {
   DialogActions,
   Snackbar,
   Alert,
-  TextField,
 } from "@mui/material";
-import { ShoppingCart, Edit, Delete } from "@mui/icons-material";
+import { Edit, Delete } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import "./ProductCard.css"; // Import the CSS file
+import "./ProductCard.css";
 import { useAuth } from "../../contexts/AuthContext";
 
-const ProductCard = ({ product }) => {
-  const { id, name, imageUrl, price, description } = product;
+const ProductCard = ({product,id,onDelete}) => {
+  const { id1, name, imageUrl, price, description } = product;
   const navigate = useNavigate();
 
   // Delete state
@@ -29,13 +26,9 @@ const ProductCard = ({ product }) => {
   const [deleteSuccessMessage, setDeleteSuccessMessage] = useState("");
   const ecommerceurl = "/api/products";
   const {
-    authUser,
-    setAuthUser,
-    isLoggedIn,
-    setIsLoggedIn,
     isAdmin,
-    setIsAdmin,
   } = useAuth();
+  
   const fetchProducts = async () => {
     try {
       const response = await fetch("/api/products/${id}");
@@ -89,6 +82,7 @@ const ProductCard = ({ product }) => {
       console.error("Error deleting product:", error);
       // Handle error if deletion fails
     }
+    onDelete(id);
   };
 
   const cancelDelete = () => {
