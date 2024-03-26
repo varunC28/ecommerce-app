@@ -28,8 +28,6 @@ function LoginPage() {
   const handleLogin = async () => {
     const formData = new FormData(document.getElementById("loginform"));
     try {
-      //alert(formData.get("fname"));
-
       if (formData.get("username").trim() === "") {
         alert("Enter Email ID");
         //document.getElementById("username").focus();
@@ -55,8 +53,7 @@ function LoginPage() {
       });
 
       if (!response.ok) {
-        console.log(4);
-        throw new Error("Error");
+        throw new Error("Failed to login, please try again");
       }
       const headers = response.headers;
       // Convert headers into an object

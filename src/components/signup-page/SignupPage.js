@@ -87,7 +87,7 @@ function SignUpPage() {
           firstName: formData.fname,
           lastName: formData.lname,
           contactNumber: formData.contact,
-          role: ["admin"],
+          role: ["USER"],
         }),
       });
       if (!response.ok) {
@@ -96,7 +96,7 @@ function SignUpPage() {
       const data = await response.json();
       setLogged(1);
     } catch (error) {
-      alert(error);
+      alert("Failed to sign up, please try again");
     }
   };
 
