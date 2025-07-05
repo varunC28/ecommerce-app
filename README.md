@@ -1,70 +1,176 @@
-# Getting Started with Create React App
+# 🛒 E-commerce Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack e-commerce application built with React frontend and Spring Boot backend.
 
-## Available Scripts
+## 🚀 Live Application
 
-In the project directory, you can run:
+- **Frontend**: [https://ecommerce-frontend.onrender.com](https://ecommerce-frontend.onrender.com)
+- **Backend API**: [https://ecommerce-backend.onrender.com](https://ecommerce-backend.onrender.com)
+- **API Documentation**: [https://ecommerce-backend.onrender.com/swagger-ui.html](https://ecommerce-backend.onrender.com/swagger-ui.html)
 
-### `npm start`
+## 🛠️ Technology Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Frontend
+- **React 18** with Hooks
+- **Material-UI** for UI components
+- **React Router** for navigation
+- **Axios** for API calls
+- **Context API** for state management
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Backend
+- **Spring Boot 2.7.7**
+- **Spring Security** with JWT
+- **Spring Data MongoDB**
+- **MongoDB Atlas** for database
+- **Maven** for build management
 
-### `npm test`
+### Infrastructure
+- **Render** for hosting
+- **MongoDB Atlas** for database
+- **GitHub** for version control
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🎯 Features
 
-### `npm run build`
+### User Features
+- ✅ User authentication (signup/signin)
+- ✅ Product browsing and search
+- ✅ Category filtering
+- ✅ Product details and ordering
+- ✅ Address management
+- ✅ Order placement and tracking
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Admin Features
+- ✅ Product management (CRUD operations)
+- ✅ User management
+- ✅ Order management
+- ✅ Category management
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🚀 Quick Start
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Prerequisites
+- Java 11+
+- Node.js 16+
+- MongoDB (local or Atlas)
 
-### `npm run eject`
+### Local Development
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/ecommerce-app.git
+   cd ecommerce-app
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. **Start Backend**
+   ```bash
+   cd backend
+   mvn spring-boot:run
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. **Start Frontend**
+   ```bash
+   npm install
+   npm start
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+4. **Access the application**
+   - Frontend: http://localhost:3000
+   - Backend: http://localhost:8080
+   - API Docs: http://localhost:8080/swagger-ui.html
 
-## Learn More
+## 📊 API Endpoints
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Authentication
+- `POST /api/auth/signup` - User registration
+- `POST /api/auth/signin` - User login
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Products
+- `GET /api/products` - Get all products
+- `GET /api/products/{id}` - Get product by ID
+- `POST /api/products` - Create product (Admin)
+- `PUT /api/products/{id}` - Update product (Admin)
+- `DELETE /api/products/{id}` - Delete product (Admin)
 
-### Code Splitting
+### Orders
+- `GET /api/orders` - Get user orders
+- `POST /api/orders` - Place new order
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Addresses
+- `GET /api/addresses` - Get user addresses
+- `POST /api/addresses` - Add new address
 
-### Analyzing the Bundle Size
+## 🔧 Environment Variables
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Backend
+```
+MONGODB_DATABASE_URL=mongodb+srv://username:password@cluster.mongodb.net/ecommerce
+JWT_SECRET=your-secret-key
+PORT=8080
+```
 
-### Making a Progressive Web App
+### Frontend
+```
+REACT_APP_API_BASE_URL=https://your-backend-url.onrender.com/api
+REACT_APP_BACKEND_URL=https://your-backend-url.onrender.com
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 📁 Project Structure
 
-### Advanced Configuration
+```
+ecommerce-app/
+├── frontend/                 # React application
+│   ├── src/
+│   │   ├── components/      # React components
+│   │   ├── contexts/        # React contexts
+│   │   └── config.js        # Environment configuration
+│   └── public/
+├── backend/                  # Spring Boot application
+│   ├── src/main/java/
+│   │   └── com/upgrad/ecommerce/
+│   │       ├── controllers/ # REST controllers
+│   │       ├── models/      # Data models
+│   │       ├── services/    # Business logic
+│   │       └── security/    # Security configuration
+│   └── src/main/resources/
+└── docs/                    # Documentation
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🚀 Deployment
 
-### Deployment
+### Render Deployment
+- **Backend**: Web Service (Java)
+- **Frontend**: Static Site
+- **Database**: MongoDB Atlas
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+See `RENDER_DEPLOYMENT.md` for detailed deployment instructions.
 
-### `npm run build` fails to minify
+## 📝 Resume Links
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### For Your Resume:
+
+**Live Application:**
+- Frontend: https://ecommerce-frontend.onrender.com
+- Backend API: https://ecommerce-backend.onrender.com
+
+**GitHub Repository:**
+- https://github.com/yourusername/ecommerce-app
+
+**API Documentation:**
+- https://ecommerce-backend.onrender.com/swagger-ui.html
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 👨‍💻 Author
+
+Your Name
+- GitHub: [@yourusername](https://github.com/yourusername)
+- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)

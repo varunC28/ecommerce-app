@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from "react";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CategoryTabs = () => {
-  const ecommerceurl = "http://localhost:8080/api/products/categories";
+  const ecommerceurl = "/api/products/categories";
   const [options, setOptions] = useState([]);
   const [selectedButton, setSelectedButton] = useState(null);
   const navigate = useNavigate();
