@@ -23,7 +23,44 @@
    - Frontend: http://localhost:3000
    - Backend: http://localhost:8080 (required)
 
-## 🌐 Netlify Deployment
+## 🌐 Render Deployment (Current)
+
+### Prerequisites
+- Render account
+- Backend deployed and accessible via HTTPS
+
+### Deployment Steps
+
+1. **Build the Application**
+   ```bash
+   npm run build
+   ```
+
+2. **Deploy to Render**
+   - Connect your GitHub repository to Render
+   - Set build command: `npm install && npm run build`
+   - Set publish directory: `build`
+
+3. **Environment Variables**
+   Set these in Render dashboard:
+   ```
+   REACT_APP_API_BASE_URL=https://ecommerce-app-c5dr.onrender.com/api
+   REACT_APP_BACKEND_URL=https://ecommerce-app-c5dr.onrender.com
+   ```
+
+4. **Backend Configuration**
+   - Backend deployed at: https://ecommerce-app-c5dr.onrender.com
+   - CORS settings configured for cross-origin requests
+   - All API endpoints accessible via HTTPS
+
+### Important Notes
+
+- The application uses client-side routing (React Router)
+- Render configuration handles SPA routing with redirects
+- Backend supports CORS for cross-origin requests
+- Authentication tokens are stored in localStorage
+
+## 🌐 Netlify Deployment (Alternative)
 
 ### Prerequisites
 - Netlify account
@@ -70,8 +107,8 @@
    - Ensure HTTPS for production
 
 2. **Routing Issues**
-   - Netlify redirects should handle client-side routing
-   - Check `netlify.toml` configuration
+   - Render/Netlify redirects should handle client-side routing
+   - Check configuration files
 
 3. **Authentication Problems**
    - Verify token storage in localStorage
@@ -87,6 +124,14 @@ upgrad-eshop/
 │   ├── config.js          # Environment configuration
 │   └── setupProxy.js      # Development proxy
 ├── public/                # Static assets
+├── backend/               # Spring Boot backend
+├── render.yaml            # Render configuration
 ├── netlify.toml          # Netlify configuration
 └── package.json          # Dependencies and scripts
-``` 
+```
+
+## 🚀 Live Application
+
+- **Frontend**: https://ecommerce-app-frontend-lhcu.onrender.com
+- **Backend**: https://ecommerce-app-c5dr.onrender.com
+- **API Documentation**: https://ecommerce-app-c5dr.onrender.com/swagger-ui.html 

@@ -18,7 +18,7 @@ mvn --version
 
 ## 🗄️ Database Setup
 
-### 1. Install MongoDB
+### Option 1: Local MongoDB
 **macOS (using Homebrew):**
 ```bash
 brew tap mongodb/brew
@@ -27,6 +27,12 @@ brew services start mongodb/brew/mongodb-community
 ```
 
 **Or download from:** https://www.mongodb.com/try/download/community
+
+### Option 2: MongoDB Atlas (Recommended for Production)
+- Create account at https://www.mongodb.com/atlas
+- Create a cluster
+- Get connection string
+- Use the connection string in environment variables
 
 ### 2. Verify MongoDB is Running
 ```bash
@@ -51,6 +57,8 @@ mvn clean install
 Create a `.env` file in the backend directory:
 ```bash
 MONGODB_DATABASE_URL=mongodb://localhost:27017/ecommerce
+# OR for MongoDB Atlas:
+MONGODB_DATABASE_URL=mongodb+srv://ecommerce-user:hevhor-6pizbo-boqjaD@ecommerceapp.nyp4w7x.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=EcommerceApp
 ```
 
 ### 4. Run Backend Application
@@ -62,13 +70,13 @@ mvn spring-boot:run
 
 ### 5. Verify Backend is Running
 ```bash
-curl http://localhost:8080/hello
-# Should return: "Hello World!"
+curl http://localhost:8080/api/health
+# Should return health status
 ```
 
 ## 🎨 Frontend Setup
 
-### 1. Navigate to Frontend Directory
+### 1. Navigate to Project Root
 ```bash
 cd ..  # Go back to project root
 ```
@@ -91,6 +99,11 @@ npm start
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:8080
 - **Swagger Documentation**: http://localhost:8080/swagger-ui.html
+
+### Production URLs:
+- **Frontend**: https://ecommerce-app-frontend-lhcu.onrender.com
+- **Backend API**: https://ecommerce-app-c5dr.onrender.com
+- **API Documentation**: https://ecommerce-app-c5dr.onrender.com/swagger-ui.html
 
 ### Default Admin User:
 The application will create default roles (ADMIN, USER) on first startup.
@@ -165,20 +178,22 @@ curl -X POST http://localhost:8080/api/auth/signin \
 
 ## 🚀 Production Deployment
 
-### Backend Deployment Options:
-1. **Heroku**: Easy deployment with MongoDB Atlas
-2. **AWS**: EC2 with MongoDB
-3. **Google Cloud**: App Engine with Cloud Firestore
-
-### Frontend Deployment:
-- **Netlify**: Already configured
-- **Vercel**: Alternative option
+### Current Deployment:
+- **Backend**: Render (Docker/Java)
+- **Frontend**: Render (Static Site)
+- **Database**: MongoDB Atlas
 
 ### Environment Variables for Production:
 ```
-MONGODB_DATABASE_URL=mongodb+srv://username:password@cluster.mongodb.net/ecommerce
-REACT_APP_API_BASE_URL=https://your-backend-url.com/api
+MONGODB_DATABASE_URL=mongodb+srv://ecommerce-user:hevhor-6pizbo-boqjaD@ecommerceapp.nyp4w7x.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=EcommerceApp
+REACT_APP_API_BASE_URL=https://ecommerce-app-c5dr.onrender.com/api
+REACT_APP_BACKEND_URL=https://ecommerce-app-c5dr.onrender.com
 ```
+
+### Alternative Deployment Options:
+1. **Heroku**: Easy deployment with MongoDB Atlas
+2. **AWS**: EC2 with MongoDB
+3. **Google Cloud**: App Engine with Cloud Firestore
 
 ## 📞 Support
 
@@ -186,4 +201,5 @@ If you encounter any issues:
 1. Check the logs in both terminal windows
 2. Verify MongoDB is running
 3. Ensure both services are on correct ports
-4. Check network connectivity between frontend and backend 
+4. Check network connectivity between frontend and backend
+5. Visit the live application: https://ecommerce-app-frontend-lhcu.onrender.com 

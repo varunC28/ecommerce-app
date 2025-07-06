@@ -24,11 +24,9 @@ The deployment was failing because Render was trying to run `node server.js` whi
 Add these environment variables in Render dashboard:
 
 ```
-REACT_APP_API_BASE_URL=https://your-backend-url.onrender.com/api
-REACT_APP_BACKEND_URL=https://your-backend-url.onrender.com
+REACT_APP_API_BASE_URL=https://ecommerce-app-c5dr.onrender.com/api
+REACT_APP_BACKEND_URL=https://ecommerce-app-c5dr.onrender.com
 ```
-
-Replace `your-backend-url` with your actual backend URL from Render.
 
 ### 4. Alternative: Use render.yaml (Updated)
 
@@ -63,7 +61,7 @@ services:
 ### 6. Verify Deployment
 
 After deployment, your frontend should be accessible at:
-`https://your-frontend-name.onrender.com`
+`https://ecommerce-app-frontend-lhcu.onrender.com`
 
 ## Troubleshooting
 
@@ -99,8 +97,8 @@ After deployment, your frontend should be accessible at:
 
 ```bash
 # For Render deployment
-REACT_APP_API_BASE_URL=https://your-backend-url.onrender.com/api
-REACT_APP_BACKEND_URL=https://your-backend-url.onrender.com
+REACT_APP_API_BASE_URL=https://ecommerce-app-c5dr.onrender.com/api
+REACT_APP_BACKEND_URL=https://ecommerce-app-c5dr.onrender.com
 
 # For local development
 REACT_APP_API_BASE_URL=/api

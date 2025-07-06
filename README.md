@@ -4,9 +4,9 @@ A full-stack e-commerce application built with React frontend and Spring Boot ba
 
 ## 🚀 Live Application
 
-- **Frontend**: [https://ecommerce-frontend.onrender.com](https://ecommerce-frontend.onrender.com)
-- **Backend API**: [https://ecommerce-backend.onrender.com](https://ecommerce-backend.onrender.com)
-- **API Documentation**: [https://ecommerce-backend.onrender.com/swagger-ui.html](https://ecommerce-backend.onrender.com/swagger-ui.html)
+- **Frontend**: [https://ecommerce-app-frontend-lhcu.onrender.com](https://ecommerce-app-frontend-lhcu.onrender.com)
+- **Backend API**: [https://ecommerce-app-c5dr.onrender.com](https://ecommerce-app-c5dr.onrender.com)
+- **API Documentation**: [https://ecommerce-app-c5dr.onrender.com/swagger-ui.html](https://ecommerce-app-c5dr.onrender.com/swagger-ui.html)
 
 ## 🛠️ Technology Stack
 
@@ -56,7 +56,7 @@ A full-stack e-commerce application built with React frontend and Spring Boot ba
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/ecommerce-app.git
+   git clone https://github.com/varunC28/ecommerce-app.git
    cd ecommerce-app
    ```
 
@@ -102,28 +102,27 @@ A full-stack e-commerce application built with React frontend and Spring Boot ba
 
 ### Backend
 ```
-MONGODB_DATABASE_URL=mongodb+srv://username:password@cluster.mongodb.net/ecommerce
-JWT_SECRET=your-secret-key
+MONGODB_DATABASE_URL=mongodb+srv://ecommerce-user:hevhor-6pizbo-boqjaD@ecommerceapp.nyp4w7x.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=EcommerceApp
+JWT_SECRET=y1/LaEwNkdwt64X7X+4iKiYG/06NaGHF+7K80P6Ukm4=
 PORT=8080
 ```
 
 ### Frontend
 ```
-REACT_APP_API_BASE_URL=https://your-backend-url.onrender.com/api
-REACT_APP_BACKEND_URL=https://your-backend-url.onrender.com
+REACT_APP_API_BASE_URL=https://ecommerce-app-c5dr.onrender.com/api
+REACT_APP_BACKEND_URL=https://ecommerce-app-c5dr.onrender.com
 ```
 
 ## 📁 Project Structure
 
 ```
 ecommerce-app/
-├── frontend/                 # React application
-│   ├── src/
-│   │   ├── components/      # React components
-│   │   ├── contexts/        # React contexts
-│   │   └── config.js        # Environment configuration
-│   └── public/
-├── backend/                  # Spring Boot application
+├── src/                     # React application
+│   ├── components/          # React components
+│   ├── contexts/           # React contexts
+│   └── config.js           # Environment configuration
+├── public/                 # Static files
+├── backend/                # Spring Boot application
 │   ├── src/main/java/
 │   │   └── com/upgrad/ecommerce/
 │   │       ├── controllers/ # REST controllers
@@ -131,13 +130,13 @@ ecommerce-app/
 │   │       ├── services/    # Business logic
 │   │       └── security/    # Security configuration
 │   └── src/main/resources/
-└── docs/                    # Documentation
+└── docs/                   # Documentation
 ```
 
 ## 🚀 Deployment
 
 ### Render Deployment
-- **Backend**: Web Service (Java)
+- **Backend**: Web Service (Java/Docker)
 - **Frontend**: Static Site
 - **Database**: MongoDB Atlas
 
@@ -148,14 +147,14 @@ See `RENDER_DEPLOYMENT.md` for detailed deployment instructions.
 ### For Your Resume:
 
 **Live Application:**
-- Frontend: https://ecommerce-frontend.onrender.com
-- Backend API: https://ecommerce-backend.onrender.com
+- Frontend: https://ecommerce-app-frontend-lhcu.onrender.com
+- Backend API: https://ecommerce-app-c5dr.onrender.com
 
 **GitHub Repository:**
-- https://github.com/yourusername/ecommerce-app
+- https://github.com/varunC28/ecommerce-app
 
 **API Documentation:**
-- https://ecommerce-backend.onrender.com/swagger-ui.html
+- https://ecommerce-app-c5dr.onrender.com/swagger-ui.html
 
 ## 🤝 Contributing
 
@@ -171,6 +170,5 @@ This project is licensed under the MIT License.
 
 ## 👨‍💻 Author
 
-Your Name
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
+Varun Chaturvedi
+- GitHub: [@varunC28](https://github.com/varunC28)

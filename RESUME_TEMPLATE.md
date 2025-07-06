@@ -22,10 +22,10 @@ Developed a complete e-commerce platform with React frontend and Spring Boot bac
 - ✅ Role-based access control (User/Admin)
 
 ### Live Application Links
-- **Frontend Application**: https://ecommerce-frontend.onrender.com
-- **Backend API**: https://ecommerce-backend.onrender.com
-- **API Documentation**: https://ecommerce-backend.onrender.com/swagger-ui.html
-- **GitHub Repository**: https://github.com/yourusername/ecommerce-app
+- **Frontend Application**: https://ecommerce-app-frontend-lhcu.onrender.com
+- **Backend API**: https://ecommerce-app-c5dr.onrender.com
+- **API Documentation**: https://ecommerce-app-c5dr.onrender.com/swagger-ui.html
+- **GitHub Repository**: https://github.com/varunC28/ecommerce-app
 
 ### Technical Achievements
 - Implemented secure JWT authentication with role-based access control
@@ -52,7 +52,7 @@ E-commerce Full-Stack Application | React, Spring Boot, MongoDB
 • Developed complete e-commerce platform with user authentication, product management, and order processing
 • Built responsive frontend using React 18 and Material-UI, backend with Spring Boot and JWT security
 • Deployed to Render with MongoDB Atlas, implemented role-based access control
-• Live Demo: https://ecommerce-frontend.onrender.com | API: https://ecommerce-backend.onrender.com
+• Live Demo: https://ecommerce-app-frontend-lhcu.onrender.com | API: https://ecommerce-app-c5dr.onrender.com
 ```
 
 ### Option 2: Detailed Version
@@ -64,7 +64,7 @@ E-commerce Full-Stack Application (React, Spring Boot, MongoDB Atlas)
 • Database: MongoDB Atlas with Spring Data MongoDB, implemented proper data modeling
 • Deployment: Render platform for both frontend and backend, integrated cloud database
 • Features: Role-based access control, product CRUD operations, shopping cart, order tracking
-• Live Application: https://ecommerce-frontend.onrender.com | API Docs: https://ecommerce-backend.onrender.com/swagger-ui.html
+• Live Application: https://ecommerce-app-frontend-lhcu.onrender.com | API Docs: https://ecommerce-app-c5dr.onrender.com/swagger-ui.html
 ```
 
 ### Option 3: Technical Focus
@@ -75,7 +75,7 @@ Full-Stack E-commerce Application | React, Spring Boot, MongoDB Atlas, Render
 • Designed RESTful APIs with comprehensive Swagger documentation
 • Deployed to Render platform with MongoDB Atlas cloud database
 • Technologies: React 18, Material-UI, Spring Boot 2.7.7, Spring Security, MongoDB
-• Live Demo: https://ecommerce-frontend.onrender.com | GitHub: https://github.com/yourusername/ecommerce-app
+• Live Demo: https://ecommerce-app-frontend-lhcu.onrender.com | GitHub: https://github.com/varunC28/ecommerce-app
 ```
 
 ---
