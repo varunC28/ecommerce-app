@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./PlaceOrderPage.css";
 import { useAuth } from "../../contexts/AuthContext";
+import { apiConfig } from "../../config";
 
 function OrderDetails({ selectedAddress }) {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ function OrderDetails({ selectedAddress }) {
   useEffect(() => {
     console.log("Fetching product details...");
     console.log(productid);
-    fetch(`/api/products/${productid}`)
+    fetch(`${apiConfig.apiBaseUrl}/products/${productid}`)
       .then((response) => response.json())
       .then((data) => {
         console.log("Received product data:", data);
@@ -30,7 +31,7 @@ function OrderDetails({ selectedAddress }) {
   const fetchAddressDetails = async () => {
     console.log(1);
     try {
-      const response = await fetch(`/api/addresses/${addressid}`, {
+      const response = await fetch(`${apiConfig.apiBaseUrl}/addresses/${addressid}`, {
         method: "GET",
 
         headers: {
@@ -60,7 +61,7 @@ function OrderDetails({ selectedAddress }) {
       console.log("\nProduct Id "+ productid);
       console.log("\nAddress Id "+ addressid);
 
-      const response = await fetch("/api/orders", {
+      const response = await fetch(`${apiConfig.apiBaseUrl}/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -95,83 +96,57 @@ function OrderDetails({ selectedAddress }) {
   };
 
   return (
-    <>
-      <div className="U-section">
-        <i
-          className="fa-solid fa-circle-check"
-          style={{ color: "#3f51b5", fontSize: "20px" }}
-        ></i>
-        <span>Items</span>
-        <div>
-          <hr />
-        </div>
-        <i
-          className="fa-solid fa-circle-check"
-          style={{ color: "#3f51b5", fontSize: "20px" }}
-        ></i>
-        <span>Select Address</span>
-        <div className="1">
-          <hr />
-        </div>
-        <span
-          style={{
-            backgroundColor: "#3f51b5",
-            color: "white",
-            padding: "0.5px",
-            height: "20px",
-            width: "20px",
-            borderRadius: "50%",
-            textAlign: "center",
-          }}
-        >
-          3
-        </span>
-        <span>Confirm Order</span>
+    <div className="order-details-container">
+      <div className="order-header">
+        <h2>Confirm Order</h2>
+        <p>Review your order details before confirming</p>
       </div>
-      <div className="order-details-container">
-        <div className="L-section">
-          {product !== null && (
-            <>
-              <h2>
-                {product.name}
-              </h2>
-              <p>
-                Quantity:        
-                <b> {quantity}</b>
-              </p>
-              <p>
-                Category: 
-                <b> {product.category}</b>
-              </p>
-              <p>
-                {product.description}
-              </p>
-              <h3 style={{color:"red"}}>
-                Total Price : ₹ {product.price * quantity}
-              </h3>
-            </>
-          )}
+
+      {product && (
+        <div className="product-details">
+          <h3>Product Details</h3>
+          <div className="product-info">
+            <img src={product.imageUrl} alt={product.name} className="product-image" />
+            <div className="product-text">
+              <h4>{product.name}</h4>
+              <p>Category: {product.category}</p>
+              <p>Manufacturer: {product.manufacturer}</p>
+              <p>Price: ${product.price}</p>
+              <p>Quantity: {quantity}</p>
+              <p>Total: ${(product.price * quantity).toFixed(2)}</p>
+            </div>
+          </div>
         </div>
-        <div className="R-section">
-          <h2>Address Details :</h2>
-          {address !== null && (
-            <>
-              <p>{address.name}</p>
-              <p>Contact Number: {address.contactNumber}</p>
-              <p>{address.street}, {address.city}</p>
-              <p>{address.state}</p>
-              <p>{address.zipcode}</p>
-            </>
-          )}
+      )}
+
+      {address && (
+        <div className="address-details">
+          <h3>Delivery Address</h3>
+          <div className="address-info">
+            <p><strong>{address.name}</strong></p>
+            <p>{address.street}</p>
+            <p>{address.city}, {address.state} {address.zipcode}</p>
+            <p>Contact: {address.contactNumber}</p>
+            {address.landmark && <p>Landmark: {address.landmark}</p>}
+          </div>
         </div>
-      </div>
-      <div className="place-order-buttons">
-        <button style={{ backgroundColor: "white", color: "black" }} onClick={goBack}>
-          BACK
+      )}
+
+      <div className="order-actions">
+        <button onClick={goBack} className="back-button">
+          Back
         </button>
-        <button onClick={handleConfirmOrder}>PLACE ORDER</button>
+        <button onClick={handleConfirmOrder} className="confirm-button">
+          Confirm Order
+        </button>
       </div>
-    </>
+
+      {successMessage && (
+        <div className="success-message">
+          {successMessage}
+        </div>
+      )}
+    </div>
   );
 }
 

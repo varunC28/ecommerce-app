@@ -4,9 +4,10 @@ import Creatable from "react-select/creatable";
 import axios from "axios";
 import { Snackbar, Alert } from "@mui/material";
 import "./AddProductsPage.css";
+import { apiConfig } from "../../config";
 
 function AddProductsPage({ isModifyPage }) {
-  const ecommerceurl = "/api/products";
+  const ecommerceurl = apiConfig.apiBaseUrl + "/products";
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [options, setOptions] = useState([]);
@@ -61,45 +62,30 @@ function AddProductsPage({ isModifyPage }) {
     });
   };
 
-  const handleCreateOption = (inputValue) => {
-    const newOption = { value: inputValue, label: inputValue };
-    setOptions([...options, newOption]); // Update options state with new option
-    setSelectedOption(newOption); // Optionally select the newly created option
-    console.log("Option created:", newOption);
-  };
-
   useEffect(() => {
-    if (id != null && isModifyPage == true) {
-      console.log("22");
-      axios.get(ecommerceurl + "/" + id).then((response) => {
-        console.log("33");
-        const productDetails = response.data;
-        console.log(productDetails);
-        //setFormData("name",productDetails.name);
-        setFormData({
-          ["id"]: productDetails.id,
-          ["name"]: productDetails.name,
-
-          ["manufacturer"]: productDetails.manufacturer,
-          ["availableItems"]: productDetails.availableItems,
-          ["price"]: productDetails.price,
-          ["imageUrl"]: productDetails.imageUrl,
-          ["description"]: productDetails.description,
+    if (isModifyPage && id) {
+      // Fetch product details for modification
+      fetch(`${ecommerceurl}/${id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setFormData({
+            id: data.id,
+            name: data.name,
+            category: data.category,
+            manufacturer: data.manufacturer,
+            availableItems: data.availableItems.toString(),
+            price: data.price.toString(),
+            imageUrl: data.imageUrl,
+            description: data.description,
+          });
+          // Set the selected category option
+          setSelectedOption({ value: data.category, label: data.category });
+        })
+        .catch((error) => {
+          console.error("Error fetching product details:", error);
         });
-        console.log(productDetails.category);
-        //setIsLoading(true);
-
-        const newOption = {
-          value: productDetails.category,
-          label: productDetails.category,
-        };
-
-        setSelectedOption(newOption);
-
-        console.log(selectedOption);
-      });
     }
-  }, []);
+  }, [id, isModifyPage, selectedOption]);
 
   const validateForm = () => {
     if(formData.name.trim() === "") {
@@ -223,62 +209,60 @@ function AddProductsPage({ isModifyPage }) {
   return (
     <>
     <div className="add-products-container">
-      <div className="heading-container">
-        <h1>{isModifyPage ? "Modify Product" : "Add Product"}</h1>
-      </div>
-
-      <form id="productform">
-        <div className="form-container">
+      <h2>{isModifyPage ? "Modify Product" : "Add Product"}</h2>
+      <form>
+        <div className="form-fields">
           <div className="name-field">
-            <span>Product Name *</span>
+            {isModifyPage && <span>Product Name</span>}
             <input
               type="text"
               name="name"
+              placeholder={!isModifyPage && "Product Name"}
               required
               value={formData.name}
               onChange={handleChange}
             />
           </div>
-
-          <div className="select-category">
-            <span>Select Category *</span>
+          <div className="category-field">
+            {isModifyPage && <span>Category</span>}
             <Creatable
-              name="category"
-              options={options}
+              isClearable
+              isDisabled={isLoading}
               isLoading={isLoading}
-              value={selectedOption}
               onChange={handleCategory}
-              onCreateOption={handleCreateOption}
+              options={options}
+              placeholder={!isModifyPage && "Select Category"}
+              value={selectedOption}
             />
           </div>
-          <br />
           <div className="manufacturer-field">
-            <span>Manufacturer *</span>
+            {isModifyPage && <span>Manufacturer</span>}
             <input
               type="text"
               name="manufacturer"
+              placeholder={!isModifyPage && "Manufacturer"}
               required
               value={formData.manufacturer}
               onChange={handleChange}
             />
           </div>
           <div className="available-items-field">
-            <span>Available Quantity *</span>
+            {isModifyPage && <span>Available Items</span>}
             <input
               type="number"
               name="availableItems"
-              min={1}
+              placeholder={!isModifyPage && "Available Items"}
               required
               value={formData.availableItems}
               onChange={handleChange}
             />
           </div>
           <div className="price-field">
-            <span>Price *</span>
+            {isModifyPage && <span>Price</span>}
             <input
               type="number"
               name="price"
-              min={0}
+              placeholder={!isModifyPage && "Price"}
               required
               value={formData.price}
               onChange={handleChange}

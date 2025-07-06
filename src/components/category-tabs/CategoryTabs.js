@@ -3,9 +3,10 @@ import React, { useState, useEffect } from "react";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { apiConfig } from "../../config";
 
 const CategoryTabs = () => {
-  const ecommerceurl = "/api/products/categories";
+  const ecommerceurl = apiConfig.apiBaseUrl + "/products/categories";
   const [options, setOptions] = useState([]);
   const [selectedButton, setSelectedButton] = useState(null);
   const navigate = useNavigate();

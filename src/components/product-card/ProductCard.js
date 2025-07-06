@@ -15,6 +15,7 @@ import { Edit, Delete } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import "./ProductCard.css";
 import { useAuth } from "../../contexts/AuthContext";
+import { apiConfig } from "../../config";
 
 const ProductCard = ({product,id,onDelete}) => {
   const { id1, name, imageUrl, price, description } = product;
@@ -24,14 +25,14 @@ const ProductCard = ({product,id,onDelete}) => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
   const [deleteSuccessMessage, setDeleteSuccessMessage] = useState("");
-  const ecommerceurl = "/api/products";
+  const ecommerceurl = apiConfig.apiBaseUrl + "/products";
   const {
     isAdmin,
   } = useAuth();
   
   const fetchProducts = async () => {
     try {
-      const response = await fetch("/api/products/${id}");
+      const response = await fetch(`${apiConfig.apiBaseUrl}/products/${id}`);
       if (response.ok) {
         const data = await response.json();
         console.log(data);
@@ -59,96 +60,104 @@ const ProductCard = ({product,id,onDelete}) => {
     setDeleteDialogOpen(true);
   };
 
-  const confirmDelete = async () => {
+  const handleDeleteConfirm = async () => {
     try {
-      // Perform deletion action here, e.g., send delete request to server
-      const response = await fetch(ecommerceurl + "/" + id, {
+      const response = await fetch(`${ecommerceurl}/${productToDelete.id}`, {
         method: "DELETE",
         headers: {
-          "Content-Type": "application/json",
-          'X-Auth-Token':  localStorage.getItem("USERTOKEN"),
+          "X-Auth-Token": localStorage.getItem("USERTOKEN"),
         },
       });
-      if (!response.ok) {
-        throw new Error("Failed to delete product");
+      if (response.ok) {
+        setDeleteSuccessMessage("Product deleted successfully");
+        onDelete(productToDelete.id);
+      } else {
+        console.error("Failed to delete product");
       }
-      // Assuming deletion is successful
-      setDeleteSuccessMessage(
-        `Product ${productToDelete.name} deleted successfully`
-      );
-      setDeleteDialogOpen(false);
-      setProductToDelete(null);
     } catch (error) {
       console.error("Error deleting product:", error);
-      // Handle error if deletion fails
     }
-    onDelete(id);
+    setDeleteDialogOpen(false);
   };
 
-  const cancelDelete = () => {
+  const handleDeleteCancel = () => {
     setDeleteDialogOpen(false);
   };
 
   return (
     <>
-      <Card className="card">
-        <img src={imageUrl} alt={name} className="image" />
-        <div className="name-price-description">
-        <CardContent className="name-price">
-          <Typography variant="h7" className="name">
+      <Card className="product-card">
+        <CardContent>
+          <div className="product-image-container">
+            <img src={imageUrl} alt={name} className="product-image" />
+          </div>
+          <Typography variant="h6" component="h2" className="product-name">
             {name}
           </Typography>
-          <Typography variant="h7" className="price">
-            ₹{price}
+          <Typography variant="body2" color="textSecondary" className="product-description">
+            {description}
           </Typography>
-        </CardContent>
-        <Typography variant="body2" className="description">
-          {description}
-        </Typography>
-        </div>
-        <div className="buttons">
-          <Button
-            variant="contained"
-            style={{ backgroundColor: "#3f51b5" }}
-            onClick={handleBuyClick}
-          >
-            BUY
-          </Button>
-          <div className="admin-button">
+          <Typography variant="h6" color="primary" className="product-price">
+            ${price}
+          </Typography>
+          
+          <div className="product-actions">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleBuyClick}
+              className="buy-button"
+            >
+              Buy Now
+            </Button>
+            
             {isAdmin && (
               <>
-                <Button onClick={handleEditClick} style={{ color: "#3f51b5" }}>
-                  <Edit />
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={handleEditClick}
+                  startIcon={<Edit />}
+                  className="edit-button"
+                >
+                  Edit
                 </Button>
                 <Button
+                  variant="outlined"
+                  color="error"
                   onClick={() => handleDeleteClick(product)}
-                  style={{ color: "#3f51b5" }}
+                  startIcon={<Delete />}
+                  className="delete-button"
                 >
-                  <Delete />
+                  Delete
                 </Button>
               </>
             )}
           </div>
-        </div>
-
-        {/* Delete Confirmation Dialog */}
-        <Dialog open={deleteDialogOpen} onClose={cancelDelete}>
-          <DialogTitle>Delete Product</DialogTitle>
-          <DialogContent>
-            <Typography>
-              Are you sure you want to delete {productToDelete?.name}?
-            </Typography>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={confirmDelete}>Confirm</Button>
-            <Button onClick={cancelDelete}>Cancel</Button>
-          </DialogActions>
-        </Dialog>
+        </CardContent>
       </Card>
-      {/* Delete Success Message */}
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={deleteDialogOpen} onClose={handleDeleteCancel}>
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          <Typography>
+            Are you sure you want to delete "{productToDelete?.name}"?
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDeleteCancel} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleDeleteConfirm} color="error" variant="contained">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Success Message */}
       {deleteSuccessMessage && (
         <Snackbar
-          className="delete-success-message"
           open={!!deleteSuccessMessage}
           autoHideDuration={6000}
           onClose={() => setDeleteSuccessMessage("")}

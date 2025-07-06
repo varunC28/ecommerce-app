@@ -4,13 +4,14 @@ import "./LoginPage.css";
 import LockIcon from "@mui/icons-material/Lock";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { apiConfig } from "../../config";
 
 function LoginPage() {
   const { isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin } = useAuth();
 
   const navigate = useNavigate();
   const [logged, setLogged] = useState(0);
-  const ecommerceurl = "/api/auth";
+  const ecommerceurl = apiConfig.apiBaseUrl + "/auth";
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -102,7 +103,7 @@ function LoginPage() {
       {
         var isLoggedIn =
           localStorage.getItem("isLoggedIn") === "true" ? true : false;
-        var isAdmin = localStorage.getItem("isAdmin") === "true" ? true : false;
+        var isAdmin = localStorage.getItem("IsAdmin") === "true" ? true : false;
       }
 
       navigate("/home");

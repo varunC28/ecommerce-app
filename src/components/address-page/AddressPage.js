@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./AddressPage.css";
 import Creatable from "react-select/creatable";
 import { useAuth } from "../../contexts/AuthContext";
+import { apiConfig } from "../../config";
 
 function AddressDetails() {
   const { authUser, isLoggedIn, isAdmin } = useAuth();
@@ -48,7 +49,7 @@ function AddressDetails() {
 
   const fetchAddress = async () => {
     try {
-      const response = await fetch("/api/addresses", {
+      const response = await fetch(apiConfig.apiBaseUrl + "/addresses", {
         method: "GET",
 
         headers: {
@@ -122,7 +123,7 @@ function AddressDetails() {
     }
     // Implement logic to save address
     try {
-      const response = await fetch("/api/addresses", {
+      const response = await fetch(apiConfig.apiBaseUrl + "/addresses", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -160,144 +161,108 @@ function AddressDetails() {
 
   return (
     <>
-<div className="address-details-container">
+    <div className="address-container">
+      <div className="address-header">
+        <h2>Delivery Address</h2>
+        <p>Select an existing address or add a new one</p>
+      </div>
 
-<div className="U-section">
-        <i
-          className="fa-solid fa-circle-check"
-          style={{ color: "#3f51b5", fontSize: "20px", marginLeft:"15px" }}
-        ></i>
-        <span>Items</span>
-        <div>
-          <hr />
-        </div>
-        <span
-          style={{
-            backgroundColor: "#3f51b5",
-            color: "white",
-            padding: "0.5px",
-            height: "20px",
-            width: "20px",
-            borderRadius: "50%",
-            textAlign: "center",
-          }}
+      <div className="existing-addresses">
+        <h3>Existing Addresses</h3>
+        <select
+          value={selectedAddress}
+          onChange={handleAddress}
+          className="address-select"
         >
-          2
-        </span>
-        <span>Select Address</span>
-        <div className="1">
-          <hr />
+          <option value="">Select an address</option>
+          {options.map((option) => (
+            <option key={option.id} value={option.id}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="new-address-form">
+        <h3>Add New Address</h3>
+        <div className="form-fields">
+          <div className="input-field">
+            <input
+              placeholder="Name *"
+              type="text"
+              name="name"
+              value={address.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="input-field">
+            <input
+              placeholder="Contact Number *"
+              type="text"
+              name="contactNumber"
+              value={address.contactNumber}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="input-field">
+            <input
+              placeholder="Street *"
+              type="text"
+              name="street"
+              value={address.street}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="input-field">
+            <input
+              placeholder="City *"
+              type="text"
+              name="city"
+              value={address.city}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="input-field">
+            <input
+              placeholder="State *"
+              type="text"
+              name="state"
+              value={address.state}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="input-field">
+            <input
+              placeholder="Landmark"
+              type="text"
+              name="landmark"
+              value={address.landmark}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="input-field">
+            <input
+              placeholder="Zip Code *"
+              type="text"
+              name="zipCode"
+              value={address.zipCode}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="input-field">
+            <button type="button" onClick={handleSaveAddress}>
+              Save Address
+            </button>
+          </div>
         </div>
-        <span
-          style={{
-            backgroundColor: "darkgray",
-            color: "white",
-            padding: "0.5px",
-            height: "20px",
-            width: "20px",
-            borderRadius: "50%",
-            textAlign: "center",
-          }}
-        >
-          3
-        </span>
-        <span style={{color:"darkgray"}}>Confirm Order</span>
-      </div>
-      
-      <div className="select-address-div">
-      <span>Select Address</span>
-      <select name="address" className="select-address" onChange={handleAddress}>
-        <option key="" value="">
-          Select
-        </option>
-
-        {/* Map over options array to dynamically add options */}
-        {options.map((option) => (
-          <option key={option.id} value={option.id}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-      </div>
-
-      <h3>-OR-</h3>
-      <h2>Add Address</h2>
-      
-      <div className="input-field">
-        <input
-          placeholder="Name *"
-          type="text"
-          name="name"
-          value={address.name}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div className="input-field">
-        <input
-          placeholder="Contact Number *"
-          type="text"
-          name="contactNumber"
-          value={address.contactNumber}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div className="input-field">
-        <input
-          placeholder="Street *"
-          type="text"
-          name="street"
-          value={address.street}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div className="input-field">
-        <input
-          placeholder="City *"
-          type="text"
-          name="city"
-          value={address.city}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div className="input-field">
-        <input
-          placeholder="State *"
-          type="text"
-          name="state"
-          value={address.state}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div className="input-field">
-        <input
-          placeholder="Landmark"
-          type="text"
-          name="landmark"
-          value={address.landmark}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div className="input-field">
-        <input
-          placeholder="Zip Code *"
-          type="text"
-          name="zipCode"
-          value={address.zipCode}
-          onChange={handleChange}
-          required
-        />
-      </div>
-
-      <div className="input-field">
-        <button type="button" onClick={handleSaveAddress}>
-          Save Address
-        </button>
       </div>
 
       <div className="next-button">

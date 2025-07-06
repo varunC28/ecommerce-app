@@ -3,6 +3,7 @@ import "./SignupPage.css";
 
 import LockIcon from "@mui/icons-material/Lock";
 import { Link, useNavigate } from "react-router-dom";
+import { apiConfig } from "../../config";
 
 function SignUpPage() {
   const [formData, setFormData] = useState({
@@ -15,7 +16,7 @@ function SignUpPage() {
   });
   const [logged, setLogged] = useState(0);
   const navigate = useNavigate();
-  const ecommerceurl = "/api/auth";
+  const ecommerceurl = apiConfig.apiBaseUrl + "/auth";
 
   const handleChange = (e) => {
     setFormData({
