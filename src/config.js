@@ -5,7 +5,7 @@ const config = {
     backendUrl: 'http://localhost:8080'
   },
   production: {
-    apiBaseUrl: process.env.REACT_APP_API_BASE_URL || '/api',
+    apiBaseUrl: process.env.REACT_APP_API_BASE_URL || 'https://ecommerce-app-c5dr.onrender.com/api',
     backendUrl: process.env.REACT_APP_BACKEND_URL || 'https://ecommerce-app-c5dr.onrender.com'
   }
 };
