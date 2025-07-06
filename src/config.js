@@ -6,7 +6,7 @@ const config = {
   },
   production: {
     apiBaseUrl: process.env.REACT_APP_API_BASE_URL || '/api',
-    backendUrl: process.env.REACT_APP_BACKEND_URL || 'https://your-backend-url.onrender.com'
+    backendUrl: process.env.REACT_APP_BACKEND_URL || 'https://ecommerce-app-c5dr.onrender.com'
   }
 };
 
