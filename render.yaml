@@ -1,4 +1,19 @@
 services:
+  # Backend Service (Spring Boot)
+  - type: web
+    name: ecommerce-backend
+    env: java
+    buildCommand: cd backend && mvn clean install
+    startCommand: cd backend && mvn spring-boot:run
+    envVars:
+      - key: MONGODB_DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JAVA_VERSION
+        value: 20
+
+  # Frontend Service (React - Static Site)
   - type: web
     name: ecommerce-frontend
     env: static
