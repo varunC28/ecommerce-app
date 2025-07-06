@@ -10,6 +10,6 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: JAVA_VERSION
-        value: 20
+        value: 11
       - key: PORT
         value: 8080 
