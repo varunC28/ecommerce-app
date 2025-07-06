@@ -92,12 +92,13 @@ function SignUpPage() {
         }),
       });
       if (!response.ok) {
-        throw new Error("Error");
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Signup failed");
       }
       const data = await response.json();
       setLogged(1);
     } catch (error) {
-      alert("Failed to sign up, please try again");
+      alert(error.message || "Failed to sign up, please try again");
     }
   };
 
