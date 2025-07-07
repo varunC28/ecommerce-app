@@ -89,7 +89,12 @@ const ProductCard = ({product,id,onDelete}) => {
       <Card className="product-card">
         <CardContent>
           <div className="product-image-container">
-            <img src={imageUrl} alt={name} className="product-image" />
+            <img
+              src={imageUrl || "https://via.placeholder.com/300x200?text=No+Image"}
+              alt={name}
+              className="product-image"
+              onError={e => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/300x200?text=No+Image"; }}
+            />
           </div>
           <Typography variant="h6" component="h2" className="product-name">
             {name}

@@ -39,7 +39,7 @@ public class SetupProducts implements ApplicationListener<ApplicationReadyEvent>
         // Electronics
         createProduct("iPhone 13", "Electronics", 999.99, 
             "Latest iPhone with advanced features", "Apple", 50, 
-            "https://via.placeholder.com/300x200?text=iPhone+13");
+            "https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/mba_15_m3_2024_hero.png");
         
         createProduct("Samsung Galaxy S21", "Electronics", 899.99, 
             "Premium Android smartphone", "Samsung", 30, 

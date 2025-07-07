@@ -136,7 +136,7 @@ function AddressDetails() {
           landmark: address.landmark,
           street: address.street,
           state: address.state,
-          zipcode: address.zipCode,
+          zipCode: address.zipCode, // fixed typo here
           user: localStorage.getItem("USERID"),
         }),
       });
@@ -145,7 +145,18 @@ function AddressDetails() {
         throw new Error("Failed to add address");
       }
       await fetchAddress();
-      console.log(options);
+      setAddress({
+        id: "",
+        name: "",
+        contactNumber: "",
+        city: "",
+        landmark: "",
+        street: "",
+        state: "",
+        zipCode: "",
+        user: "",
+      });
+      alert("Address saved successfully!");
     } catch (error) {
       console.log(error);
     }

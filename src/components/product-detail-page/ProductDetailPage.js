@@ -46,7 +46,12 @@ function ProductDetailsPage() {
 
       <div className="product-detail-content">
         <div className="product-image-section">
-          <img src={product.imageUrl} alt={product.name} className="product-detail-image" />
+          <img
+            src={product.imageUrl || "https://via.placeholder.com/300x200?text=No+Image"}
+            alt={product.name}
+            className="product-detail-image"
+            onError={e => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/300x200?text=No+Image"; }}
+          />
         </div>
         
         <div className="product-info-section">
