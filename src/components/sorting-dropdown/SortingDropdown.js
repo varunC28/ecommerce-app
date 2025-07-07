@@ -17,7 +17,7 @@ const SortingDropdown = ({ onSort }) => {
         position: 'absolute',
         top: '-10px',
         left: '8px',
-        background: '#fff',
+        background: '#fafbfc',
         color: '#888',
         fontSize: '0.85rem',
         padding: '0 6px',

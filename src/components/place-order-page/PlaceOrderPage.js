@@ -29,6 +29,14 @@ function OrderDetails({ selectedAddress }) {
 
   const { authUser, isLoggedIn, isAdmin } = useAuth();
   const fetchAddressDetails = async () => {
+    const token = localStorage.getItem("USERTOKEN");
+    if (!token || token === "null" || token === "undefined") {
+      alert("You must be logged in to view addresses. Please log in again.");
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1500);
+      return;
+    }
     console.log(1);
     try {
       const response = await fetch(`${apiConfig.apiBaseUrl}/addresses/${addressid}`, {
@@ -36,7 +44,7 @@ function OrderDetails({ selectedAddress }) {
 
         headers: {
           "Content-Type": "application/json",
-          "X-Auth-Token": localStorage.getItem("USERTOKEN"),
+          "X-Auth-Token": token,
         },
       });
       console.log(3);
@@ -54,6 +62,14 @@ function OrderDetails({ selectedAddress }) {
   };
 
   const handleConfirmOrder = async () => {
+    const token = localStorage.getItem("USERTOKEN");
+    if (!token || token === "null" || token === "undefined") {
+      alert("You must be logged in to place an order. Please log in again.");
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1500);
+      return;
+    }
     try {
 
       console.log("Quantity "+ quantity);
@@ -66,7 +82,7 @@ function OrderDetails({ selectedAddress }) {
         headers: {
           "Content-Type": "application/json",
 
-          'X-Auth-Token': localStorage.getItem("USERTOKEN"),
+          'X-Auth-Token': token,
 
 
         },

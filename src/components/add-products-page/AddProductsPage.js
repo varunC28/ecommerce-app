@@ -117,6 +117,14 @@ function AddProductsPage({ isModifyPage }) {
   }
 
   const handleModifyProduct = async () => {
+    const token = localStorage.getItem("USERTOKEN");
+    if (!token || token === "null" || token === "undefined") {
+      alert("You must be logged in to modify a product. Please log in again.");
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1500);
+      return;
+    }
     try {
       if(!validateForm()) {
         return ;
@@ -125,7 +133,7 @@ function AddProductsPage({ isModifyPage }) {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "X-Auth-Token": localStorage.getItem("USERTOKEN"),
+          "X-Auth-Token": token,
         },
         body: JSON.stringify({
           name: formData.name,
@@ -171,6 +179,14 @@ function AddProductsPage({ isModifyPage }) {
   }
 
   const handleAddProduct = async () => {
+    const token = localStorage.getItem("USERTOKEN");
+    if (!token || token === "null" || token === "undefined") {
+      alert("You must be logged in to add a product. Please log in again.");
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1500);
+      return;
+    }
     try {
       if(!validateForm()) {
         return ;
@@ -179,7 +195,7 @@ function AddProductsPage({ isModifyPage }) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Auth-Token": localStorage.getItem("USERTOKEN"),
+          "X-Auth-Token": token,
         },
         body: JSON.stringify({
           name: formData.name,

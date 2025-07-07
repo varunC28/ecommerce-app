@@ -80,8 +80,13 @@ function LoginPage() {
       }
 
       //setAuthUser({"USERTOKEN":data['token']});
+      const token = response.headers.get("x-auth-token");
+      if (!token) {
+        alert("Login failed: No authentication token received. Please try again or contact support.");
+        return;
+      }
       localStorage.setItem("IsLoggedIn", true);
-      localStorage.setItem("USERTOKEN", response.headers.get("x-auth-token"));
+      localStorage.setItem("USERTOKEN", token);
       localStorage.setItem("USERID", data["id"]);
       localStorage.setItem("USEREMAIL", data["email"]);
       localStorage.setItem("USERROLES", data["roles"]);

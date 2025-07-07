@@ -50,13 +50,21 @@ function AddressDetails() {
   };
 
   const fetchAddress = async () => {
+    const token = localStorage.getItem("USERTOKEN");
+    if (!token || token === "null" || token === "undefined") {
+      setErrorMessage("You must be logged in to view addresses. Please log in again.");
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1500);
+      return;
+    }
     try {
       const response = await fetch(apiConfig.apiBaseUrl + "/addresses", {
         method: "GET",
 
         headers: {
           "Content-Type": "application/json",
-          "X-Auth-Token": localStorage.getItem("USERTOKEN"),
+          "X-Auth-Token": token,
         },
       });
       console.log(3);
@@ -127,8 +135,11 @@ function AddressDetails() {
     }
     try {
       const token = localStorage.getItem("USERTOKEN");
-      if (!token) {
-        setErrorMessage("You must be logged in to add an address.");
+      if (!token || token === "null" || token === "undefined") {
+        setErrorMessage("You must be logged in to add an address. Please log in again.");
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 1500);
         return;
       }
       const payload = {
@@ -202,11 +213,11 @@ function AddressDetails() {
         </div>
 
         <div className="existing-addresses">
-          <h3>Existing Addresses</h3>
           <select
             value={selectedAddress}
             onChange={handleAddress}
             className="address-select"
+            style={{ width: '415px', marginBottom: '20px' }}
           >
             <option value="">Select an address</option>
             {options.map((option) => (
@@ -292,18 +303,19 @@ function AddressDetails() {
             </div>
 
             <div className="input-field">
-              <button type="button" onClick={handleSaveAddress}>
+              <button type="button" onClick={handleSaveAddress} style={{ width: '415px', height: '40px' }}>
                 Save Address
               </button>
             </div>
           </div>
         </div>
 
-        <div className="next-button">
-          <button style={{ backgroundColor: "white", color: "black" }} onClick={goBack}>
+        {/* Move next-button below Save Address and center it */}
+        <div className="next-button" style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '10px' }}>
+          <button style={{ backgroundColor: 'white', color: 'black', width: '120px' }} onClick={goBack}>
             BACK
           </button>
-          <button type="button" onClick={handlenextclick}>
+          <button type="button" style={{ width: '120px' }} onClick={handlenextclick}>
             NEXT
           </button>
         </div>

@@ -79,11 +79,19 @@ const Home = () => {
   };
 
   const handleDelete = async (productId) => {
+    const token = localStorage.getItem("USERTOKEN");
+    if (!token || token === "null" || token === "undefined") {
+      alert("You must be logged in to delete a product. Please log in again.");
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1500);
+      return;
+    }
     try {
       const response = await fetch(`${ecommerceurl}/${productId}`, {
         method: "DELETE",
         headers: {
-          "X-Auth-Token": localStorage.getItem("USERTOKEN"),
+          "X-Auth-Token": token,
         },
       });
       if (response.ok) {
