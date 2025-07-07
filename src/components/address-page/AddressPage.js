@@ -26,7 +26,7 @@ function AddressDetails() {
     landmark: "",
     street: "",
     state: "",
-    zipCode: "",
+    zipcode: "",
     user: "",
   });
 
@@ -121,7 +121,7 @@ function AddressDetails() {
       alert("Enter state");
       return false;
     }
-    if (address.zipCode.trim() === "") {
+    if (address.zipcode.trim() === "") {
       alert("Enter zipcode");
       return false;
     }
@@ -153,7 +153,7 @@ function AddressDetails() {
         landmark: address.landmark,
         street: address.street,
         state: address.state,
-        zipCode: address.zipCode
+        zipcode: address.zipcode
         // user: localStorage.getItem("USERID"), // REMOVED
       };
       const headers = {
@@ -188,7 +188,7 @@ function AddressDetails() {
         landmark: "",
         street: "",
         state: "",
-        zipCode: "",
+        zipcode: "",
         user: "",
       });
       setSuccessMessage("Address saved successfully!");
@@ -295,8 +295,8 @@ function AddressDetails() {
               <input
                 placeholder="Zip Code *"
                 type="text"
-                name="zipCode"
-                value={address.zipCode}
+                name="zipcode"
+                value={address.zipcode}
                 onChange={handleChange}
                 required
               />
