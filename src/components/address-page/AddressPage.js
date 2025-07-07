@@ -4,6 +4,7 @@ import "./AddressPage.css";
 import Creatable from "react-select/creatable";
 import { useAuth } from "../../contexts/AuthContext";
 import { apiConfig } from "../../config";
+import { Snackbar, Alert } from '@mui/material';
 
 function AddressDetails() {
   const { authUser, isLoggedIn, isAdmin } = useAuth();
@@ -154,15 +155,11 @@ function AddressDetails() {
         street: address.street,
         state: address.state,
         zipcode: address.zipcode
-        // user: localStorage.getItem("USERID"), // REMOVED
       };
       const headers = {
         "Content-Type": "application/json",
         "X-Auth-Token": token,
       };
-      // Please copy the following payload and headers if you get a 400 error and share it for debugging:
-      console.log("Address payload:", payload);
-      console.log("Address headers:", headers);
       const response = await fetch(apiConfig.apiBaseUrl + "/addresses", {
         method: "POST",
         headers,
@@ -177,7 +174,11 @@ function AddressDetails() {
           errorText = await response.text();
         }
         setErrorMessage(errorText);
+        setSuccessMessage("");
         throw new Error(errorText);
+      } else {
+        setErrorMessage("");
+        setSuccessMessage("Address saved successfully!");
       }
       await fetchAddress();
       setAddress({
@@ -191,9 +192,10 @@ function AddressDetails() {
         zipcode: "",
         user: "",
       });
-      setSuccessMessage("Address saved successfully!");
     } catch (error) {
-      setErrorMessage("Failed to add address: " + error.message);
+      if (!successMessage) {
+        setErrorMessage("Failed to add address: " + error.message);
+      }
       console.log(error);
     }
   };
@@ -209,8 +211,19 @@ function AddressDetails() {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#fafbfc' }}>
       <div className="address-container" style={{ width: '100%', maxWidth: 600, margin: '0 auto' }}>
+        {/* Error message */}
         {errorMessage && <div style={{ color: 'red', marginBottom: 10 }}>{errorMessage}</div>}
-        {successMessage && <div style={{ color: 'green', marginBottom: 10 }}>{successMessage}</div>}
+        {/* Success Snackbar */}
+        <Snackbar
+          open={!!successMessage}
+          autoHideDuration={4000}
+          onClose={() => setSuccessMessage("")}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        >
+          <Alert onClose={() => setSuccessMessage("")} severity="success" sx={{ width: '100%' }}>
+            {successMessage}
+          </Alert>
+        </Snackbar>
 
         <div className="existing-addresses">
           <select
