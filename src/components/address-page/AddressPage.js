@@ -10,6 +10,8 @@ function AddressDetails() {
   const [options, setOptions] = useState([]);
   const [selectedAddress, setSelectedAddresss] = useState("");
   const { productid, quantity } = useParams();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -118,6 +120,8 @@ function AddressDetails() {
     return true;
   };
   const handleSaveAddress = async () => {
+    setErrorMessage("");
+    setSuccessMessage("");
     if (!validateform()) {
       return;
     }
@@ -141,7 +145,8 @@ function AddressDetails() {
         }),
       });
       if (!response.ok) {
-        console.log(response.status);
+        const errorText = await response.text();
+        setErrorMessage("Failed to add address: " + errorText);
         throw new Error("Failed to add address");
       }
       await fetchAddress();
@@ -156,8 +161,9 @@ function AddressDetails() {
         zipCode: "",
         user: "",
       });
-      alert("Address saved successfully!");
+      setSuccessMessage("Address saved successfully!");
     } catch (error) {
+      setErrorMessage("Failed to add address: " + error.message);
       console.log(error);
     }
   };
@@ -171,122 +177,123 @@ function AddressDetails() {
   };
 
   return (
-    <>
-    <div className="address-container">
-      <div className="address-header">
-        <h2>Delivery Address</h2>
-        <p>Select an existing address or add a new one</p>
-      </div>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#fafbfc' }}>
+      <div className="address-container" style={{ width: '100%', maxWidth: 600, margin: '0 auto' }}>
+        {errorMessage && <div style={{ color: 'red', marginBottom: 10 }}>{errorMessage}</div>}
+        {successMessage && <div style={{ color: 'green', marginBottom: 10 }}>{successMessage}</div>}
+        <div className="address-header">
+          <h2>Delivery Address</h2>
+          <p>Select an existing address or add a new one</p>
+        </div>
 
-      <div className="existing-addresses">
-        <h3>Existing Addresses</h3>
-        <select
-          value={selectedAddress}
-          onChange={handleAddress}
-          className="address-select"
-        >
-          <option value="">Select an address</option>
-          {options.map((option) => (
-            <option key={option.id} value={option.id}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      </div>
+        <div className="existing-addresses">
+          <h3>Existing Addresses</h3>
+          <select
+            value={selectedAddress}
+            onChange={handleAddress}
+            className="address-select"
+          >
+            <option value="">Select an address</option>
+            {options.map((option) => (
+              <option key={option.id} value={option.id}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      <div className="new-address-form">
-        <h3>Add New Address</h3>
-        <div className="form-fields">
-          <div className="input-field">
-            <input
-              placeholder="Name *"
-              type="text"
-              name="name"
-              value={address.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="input-field">
-            <input
-              placeholder="Contact Number *"
-              type="text"
-              name="contactNumber"
-              value={address.contactNumber}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="input-field">
-            <input
-              placeholder="Street *"
-              type="text"
-              name="street"
-              value={address.street}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="input-field">
-            <input
-              placeholder="City *"
-              type="text"
-              name="city"
-              value={address.city}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="input-field">
-            <input
-              placeholder="State *"
-              type="text"
-              name="state"
-              value={address.state}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="input-field">
-            <input
-              placeholder="Landmark"
-              type="text"
-              name="landmark"
-              value={address.landmark}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="input-field">
-            <input
-              placeholder="Zip Code *"
-              type="text"
-              name="zipCode"
-              value={address.zipCode}
-              onChange={handleChange}
-              required
-            />
-          </div>
+        <div className="new-address-form">
+          <h3>Add New Address</h3>
+          <div className="form-fields">
+            <div className="input-field">
+              <input
+                placeholder="Name *"
+                type="text"
+                name="name"
+                value={address.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="input-field">
+              <input
+                placeholder="Contact Number *"
+                type="text"
+                name="contactNumber"
+                value={address.contactNumber}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="input-field">
+              <input
+                placeholder="Street *"
+                type="text"
+                name="street"
+                value={address.street}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="input-field">
+              <input
+                placeholder="City *"
+                type="text"
+                name="city"
+                value={address.city}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="input-field">
+              <input
+                placeholder="State *"
+                type="text"
+                name="state"
+                value={address.state}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="input-field">
+              <input
+                placeholder="Landmark"
+                type="text"
+                name="landmark"
+                value={address.landmark}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="input-field">
+              <input
+                placeholder="Zip Code *"
+                type="text"
+                name="zipCode"
+                value={address.zipCode}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-          <div className="input-field">
-            <button type="button" onClick={handleSaveAddress}>
-              Save Address
-            </button>
+            <div className="input-field">
+              <button type="button" onClick={handleSaveAddress}>
+                Save Address
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="next-button">
-        <button style={{ backgroundColor: "white", color: "black" }} onClick={goBack}>
-          BACK
-        </button>
-        <button type="button" onClick={handlenextclick}>
-          NEXT
-        </button>
+        <div className="next-button">
+          <button style={{ backgroundColor: "white", color: "black" }} onClick={goBack}>
+            BACK
+          </button>
+          <button type="button" onClick={handlenextclick}>
+            NEXT
+          </button>
+        </div>
       </div>
     </div>
-    </>
-    
   );
 }
 
