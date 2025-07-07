@@ -1,7 +1,15 @@
 #sorting-dropdown {
     width: 200px;
+    min-width: 200px;
 }
 
 .sorting-container {
-    margin-left: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.sorting-container .MuiFormControl-root {
+    min-width: 200px;
 }
