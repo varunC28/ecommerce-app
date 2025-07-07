@@ -12,7 +12,19 @@ const SortingDropdown = ({ onSort }) => {
   };
 
   return (
-    <div className="sorting-container">
+    <div className="sorting-container" style={{ position: 'relative' }}>
+      <span style={{
+        position: 'absolute',
+        top: '-10px',
+        left: '8px',
+        background: '#fff',
+        color: '#888',
+        fontSize: '0.85rem',
+        padding: '0 6px',
+        zIndex: 2,
+        fontWeight: 500,
+        letterSpacing: '0.5px',
+      }}>Sort</span>
       <FormControl>
       
       <Select

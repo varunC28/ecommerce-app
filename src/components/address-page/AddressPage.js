@@ -141,13 +141,16 @@ function AddressDetails() {
         zipCode: address.zipCode,
         user: localStorage.getItem("USERID"),
       };
+      const headers = {
+        "Content-Type": "application/json",
+        "X-Auth-Token": token,
+      };
+      // Please copy the following payload and headers if you get a 400 error and share it for debugging:
       console.log("Address payload:", payload);
+      console.log("Address headers:", headers);
       const response = await fetch(apiConfig.apiBaseUrl + "/addresses", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Auth-Token": token,
-        },
+        headers,
         body: JSON.stringify(payload),
       });
       if (!response.ok) {

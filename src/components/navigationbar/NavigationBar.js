@@ -51,7 +51,7 @@ const NavigationBar = () => {
             <ShoppingCart />
           </IconButton>
           <Typography variant="h6" style={{ marginLeft: 8, fontSize:"large" }}>
-            upGrad Eshop
+            Varun's Ecommerce
           </Typography>
         </div>
         {isLoggedIn && (
