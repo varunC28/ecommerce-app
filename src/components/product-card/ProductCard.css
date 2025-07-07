@@ -29,6 +29,7 @@
   height: 180px;
   object-fit: cover;
   display: block;
+  padding: 10px;
 }
   
   .name-price {

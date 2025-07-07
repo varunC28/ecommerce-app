@@ -210,7 +210,7 @@ function AddressDetails() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#fafbfc' }}>
-      <div className="address-container" style={{ width: '100%', maxWidth: 600, margin: '0 auto' }}>
+      <div className="address-container" style={{ width: '100%', maxWidth: 400, margin: '0 auto' }}>
         {/* Error message */}
         {errorMessage && <div style={{ color: 'red', marginBottom: 10 }}>{errorMessage}</div>}
         {/* Success Snackbar */}
@@ -230,7 +230,7 @@ function AddressDetails() {
             value={selectedAddress}
             onChange={handleAddress}
             className="address-select"
-            style={{ width: '415px', marginBottom: '20px' }}
+            style={{ width: '415px', marginBottom: '20px', height: '40px' }}
           >
             <option value="">Select an address</option>
             {options.map((option) => (
