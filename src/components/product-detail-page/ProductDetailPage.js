@@ -39,49 +39,76 @@ function ProductDetailsPage() {
   }
 
   return (
-    <div className="product-detail-container">
-      <div className="product-detail-header">
-        <h2>Product Details</h2>
+    <div className="product-details-container">
+      <div className="product-image-section">
+        <img
+          src={product.imageUrl || "https://via.placeholder.com/300x200?text=No+Image"}
+          alt={product.name}
+          className="product-detail-image"
+          onError={e => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/300x200?text=No+Image"; }}
+        />
       </div>
-
-      <div className="product-detail-content">
-        <div className="product-image-section">
-          <img
-            src={product.imageUrl || "https://via.placeholder.com/300x200?text=No+Image"}
-            alt={product.name}
-            className="product-detail-image"
-            onError={e => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/300x200?text=No+Image"; }}
+      <div className="product-info-container">
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: 16 }}>
+          <h2 style={{ margin: 0, fontWeight: 700 }}>{product.name}</h2>
+          <span style={{
+            background: '#1976d2',
+            color: '#fff',
+            borderRadius: '20px',
+            padding: '6px 18px',
+            marginLeft: 18,
+            fontWeight: 500,
+            fontSize: '1rem',
+            display: 'inline-block',
+          }}>
+            Available Quantity: {product.availableItems}
+          </span>
+        </div>
+        <div style={{ marginBottom: 10, fontSize: '1.1rem' }}>
+          <b>Category:</b> {product.category}
+        </div>
+        <div style={{ marginBottom: 18, color: '#444', fontSize: '1.05rem' }}>
+          <b>Description:</b> {product.description}
+        </div>
+        <div style={{ marginBottom: 18, color: '#e53935', fontWeight: 700, fontSize: '1.3rem' }}>
+          ₹ {product.price}
+        </div>
+        <div style={{ marginBottom: 18 }}>
+          <input
+            type="number"
+            min="1"
+            max={product.availableItems}
+            value={quantity}
+            onChange={e => setQuantity(e.target.value)}
+            placeholder="Enter Quantity"
+            style={{
+              width: '100%',
+              padding: '12px',
+              border: '1.5px solid #1976d2',
+              borderRadius: '7px',
+              fontSize: '1.1rem',
+              marginBottom: 10,
+              outline: 'none',
+            }}
           />
         </div>
-        
-        <div className="product-info-section">
-          <h3>{product.name}</h3>
-          <p className="product-description">{product.description}</p>
-          
-          <div className="product-details">
-            <p><strong>Category:</strong> {product.category}</p>
-            <p><strong>Manufacturer:</strong> {product.manufacturer}</p>
-            <p><strong>Available Items:</strong> {product.availableItems}</p>
-            <p><strong>Price:</strong> ${product.price}</p>
-          </div>
-
-          <div className="order-section">
-            <label htmlFor="quantity">Quantity:</label>
-            <input
-              type="number"
-              id="quantity"
-              min="1"
-              max={product.availableItems}
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              placeholder="Enter quantity"
-            />
-            
-            <button onClick={handleOrder} className="order-button">
-              Place Order
-            </button>
-          </div>
-        </div>
+        <button
+          onClick={handleOrder}
+          style={{
+            width: '100%',
+            background: '#1976d2',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '7px',
+            padding: '14px 0',
+            fontSize: '1.1rem',
+            fontWeight: 600,
+            cursor: 'pointer',
+            transition: 'background 0.2s',
+          }}
+        >
+          PLACE ORDER
+        </button>
       </div>
     </div>
   );

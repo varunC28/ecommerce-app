@@ -26,6 +26,8 @@
   flex-wrap: wrap;
   justify-content: space-around;
   margin: 50px;
+  row-gap: 40px;
+  column-gap: 30px;
 }
 
 #sorting-dropdown-label {
