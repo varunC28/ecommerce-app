@@ -4,6 +4,7 @@ import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { apiConfig } from "../../config";
+import "./CategoryTabs.css";
 
 const CategoryTabs = () => {
   const ecommerceurl = apiConfig.apiBaseUrl + "/products/categories";
@@ -38,25 +39,30 @@ const CategoryTabs = () => {
   }, [options]);
 
   const handleButtonChange = (event, newButtonValue) => {
-    //alert(newButtonValue);
     setSelectedButton(newButtonValue);
     if (newButtonValue !== null) {
-      navigate("/category/" + newButtonValue);
+      if (newButtonValue === "all") {
+        navigate("/home");
+      } else {
+        navigate("/category/" + newButtonValue);
+      }
     }
   };
 
   return (
-    <ToggleButtonGroup
-      value={selectedButton}
-      onChange={handleButtonChange}
-      exclusive
-    >
-      {options.map((option, index) => (
-        <ToggleButton key={index} value={option.value}>
-          {option.label}
-        </ToggleButton>
-      ))}
-    </ToggleButtonGroup>
+    <div className="category-tabs">
+      <ToggleButtonGroup
+        value={selectedButton}
+        onChange={handleButtonChange}
+        exclusive
+      >
+        {options.map((option, index) => (
+          <ToggleButton key={index} value={option.value}>
+            {option.label}
+          </ToggleButton>
+        ))}
+      </ToggleButtonGroup>
+    </div>
   );
 };
 

@@ -47,9 +47,9 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    if (name) {
+    if (name && name !== "all") {
       const filteredProducts = products.filter((product) =>
-        product.name.toLowerCase().includes(name.toLowerCase())
+        product.category.toLowerCase() === name.toLowerCase()
       );
       setDisplayProducts(filteredProducts);
     } else {
@@ -100,13 +100,13 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <div className="category-tabs-container">
+      <div className="category">
         <CategoryTabs />
       </div>
-      <div className="sorting-container">
+      <div className="sort">
         <SortingDropdown onSort={handleSort} />
       </div>
-      <div className="products-container">
+      <div className="product-cards">
         {displayProducts.map((product) => (
           <ProductCard
             key={product.id}
