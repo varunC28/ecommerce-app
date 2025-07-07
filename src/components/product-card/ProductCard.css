@@ -27,7 +27,7 @@
 .product-image {
   width: 219px;
   height: 180px;
-  object-fit: contain;
+  object-fit: cover;
   display: block;
 }
   

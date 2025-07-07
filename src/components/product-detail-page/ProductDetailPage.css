@@ -58,8 +58,8 @@
 }
 
 .product-image-section {
-  width: 414px;
-  height: 422px;
+  width: 412px;
+  height: 420px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -70,8 +70,8 @@
   overflow: hidden;
 }
 .product-detail-image {
-  width: 414px;
-  height: 422px;
-  object-fit: contain;
+  width: 412px;
+  height: 420px;
+  object-fit: cover;
   border-radius: 8px;
 }
