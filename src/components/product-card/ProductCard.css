@@ -1,59 +1,45 @@
 /* ProductCard.css */
 
 .card {
-  width: 320px;
-  min-height: 420px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: box-shadow 0.2s;
-  position: relative;
-}
-.card:hover {
-  box-shadow: 0 6px 24px rgba(0,0,0,0.13);
-}
-.image {
-  width: 90%;
-  height: 180px;
-  object-fit: contain;
-  margin-top: 20px;
-  border-radius: 8px;
-  background: #f5f5f5;
-}
-.name-price {
-  display: flex;
-  justify-content: space-between;
-  width: 90%;
-  margin: 18px 0 0 0;
-  font-size: 1.1rem;
-  font-weight: 500;
-}
-.description {
-  width: 90%;
-  color: #888;
-  font-size: 0.98rem;
-  margin: 10px 0 0 0;
-  min-height: 60px;
-}
-.buttons {
-  display: flex;
-  justify-content: flex-end;
-  width: 90%;
-  margin-top: auto;
-  margin-bottom: 18px;
-  gap: 10px;
-}
-.name {
-  max-width: 170px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.name-price-description {
-  width: 90%;
-  margin-bottom: 10px;
-}
+    width: 300px; /* Adjust as needed */
+    height: 500px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  .image {
+    width: 100%;
+    height: 50%;
+  }
+  
+  .name-price {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: large;
+  }
+  
+  .description {
+    padding: 10px;
+    color: darkgray;
+    margin-left: 6px !important;
+  }
+  
+  .buttons {
+    display: flex;
+    align-content: end;
+    position: absolute;
+    bottom: 5px;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0px 5px 0px 5px;
+  }
+
+  .name{
+    max-width: 170px;
+  }
+  
+  .name-price-description {
+    max-height:190px; 
+    overflow-y: auto;
+  }

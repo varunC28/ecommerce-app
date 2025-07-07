@@ -1,22 +1,7 @@
-.sorting-container {
-  display: flex;
-  align-items: center;
-  margin: 0 0 30px 60px;
-}
-#sorting-dropdown-label {
-  margin-right: 12px;
-  font-size: 1.05rem;
-  color: #333;
-}
 #sorting-dropdown {
-  width: 220px;
-  background: #fff;
-  border-radius: 6px;
-  border: 1px solid #e0e0e0;
-  font-size: 1rem;
-  margin-left: 8px;
+    width: 200px;
 }
 
-.sorting-container .MuiFormControl-root {
-    min-width: 200px;
+.sorting-container {
+    margin-left: 110px;
 }
