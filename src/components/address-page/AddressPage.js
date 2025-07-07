@@ -131,22 +131,24 @@ function AddressDetails() {
         setErrorMessage("You must be logged in to add an address.");
         return;
       }
+      const payload = {
+        name: address.name,
+        contactNumber: address.contactNumber,
+        city: address.city,
+        landmark: address.landmark,
+        street: address.street,
+        state: address.state,
+        zipCode: address.zipCode,
+        user: localStorage.getItem("USERID"),
+      };
+      console.log("Address payload:", payload);
       const response = await fetch(apiConfig.apiBaseUrl + "/addresses", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "X-Auth-Token": token,
         },
-        body: JSON.stringify({
-          name: address.name,
-          contactNumber: address.contactNumber,
-          city: address.city,
-          landmark: address.landmark,
-          street: address.street,
-          state: address.state,
-          zipCode: address.zipCode, // backend expects zipCode
-          user: localStorage.getItem("USERID"),
-        }),
+        body: JSON.stringify(payload),
       });
       if (!response.ok) {
         let errorText = "Failed to add address";

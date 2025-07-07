@@ -93,25 +93,25 @@ function ProductDetailsPage() {
             }}
           />
         </div>
-        <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-          <button
-            onClick={handleOrder}
-            style={{
-              width: '80%',
-              background: '#3f51b5',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '7px',
-              padding: '12px 0',
-              fontSize: '1.1rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              transition: 'background 0.2s',
-            }}
-          >
-            PLACE ORDER
-          </button>
-        </div>
+        <button
+          onClick={handleOrder}
+          style={{
+            width: '200px',
+            background: '#3f51b5',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '7px',
+            padding: '12px 0',
+            fontSize: '1.1rem',
+            fontWeight: 600,
+            cursor: 'pointer',
+            transition: 'background 0.2s',
+            marginLeft: 0,
+            display: 'block',
+          }}
+        >
+          PLACE ORDER
+        </button>
       </div>
     </div>
   );
