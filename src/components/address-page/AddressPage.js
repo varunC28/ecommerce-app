@@ -125,13 +125,17 @@ function AddressDetails() {
     if (!validateform()) {
       return;
     }
-    // Implement logic to save address
     try {
+      const token = localStorage.getItem("USERTOKEN");
+      if (!token) {
+        setErrorMessage("You must be logged in to add an address.");
+        return;
+      }
       const response = await fetch(apiConfig.apiBaseUrl + "/addresses", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Auth-Token": localStorage.getItem("USERTOKEN"),
+          "X-Auth-Token": token,
         },
         body: JSON.stringify({
           name: address.name,
@@ -140,14 +144,20 @@ function AddressDetails() {
           landmark: address.landmark,
           street: address.street,
           state: address.state,
-          zipCode: address.zipCode, // fixed typo here
+          zipCode: address.zipCode, // backend expects zipCode
           user: localStorage.getItem("USERID"),
         }),
       });
       if (!response.ok) {
-        const errorText = await response.text();
-        setErrorMessage("Failed to add address: " + errorText);
-        throw new Error("Failed to add address");
+        let errorText = "Failed to add address";
+        try {
+          const data = await response.json();
+          errorText = data.message || JSON.stringify(data);
+        } catch (e) {
+          errorText = await response.text();
+        }
+        setErrorMessage(errorText);
+        throw new Error(errorText);
       }
       await fetchAddress();
       setAddress({

@@ -52,7 +52,7 @@ function ProductDetailsPage() {
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: 16 }}>
           <h2 style={{ margin: 0, fontWeight: 700 }}>{product.name}</h2>
           <span style={{
-            background: '#1976d2',
+            background: '#3f51b5',
             color: '#fff',
             borderRadius: '20px',
             padding: '6px 18px',
@@ -70,10 +70,10 @@ function ProductDetailsPage() {
         <div style={{ marginBottom: 18, color: '#444', fontSize: '1.05rem' }}>
           <b>Description:</b> {product.description}
         </div>
-        <div style={{ marginBottom: 18, color: '#e53935', fontWeight: 700, fontSize: '1.3rem' }}>
+        <div style={{ marginBottom: 18, color: '#e53935', fontWeight: 400, fontSize: '1.3rem' }}>
           ₹ {product.price}
         </div>
-        <div style={{ marginBottom: 18 }}>
+        <div className="input-quantity" style={{ marginBottom: 18, width: '100%' }}>
           <input
             type="number"
             min="1"
@@ -82,33 +82,36 @@ function ProductDetailsPage() {
             onChange={e => setQuantity(e.target.value)}
             placeholder="Enter Quantity"
             style={{
-              width: '100%',
-              padding: '12px',
-              border: '1.5px solid #1976d2',
-              borderRadius: '7px',
+              border: '2px solid lightgray',
+              borderRadius: '5px',
+              padding: '8px',
+              width: '250px',
+              height: '30px',
               fontSize: '1.1rem',
               marginBottom: 10,
               outline: 'none',
             }}
           />
         </div>
-        <button
-          onClick={handleOrder}
-          style={{
-            width: '100%',
-            background: '#1976d2',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '7px',
-            padding: '14px 0',
-            fontSize: '1.1rem',
-            fontWeight: 600,
-            cursor: 'pointer',
-            transition: 'background 0.2s',
-          }}
-        >
-          PLACE ORDER
-        </button>
+        <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+          <button
+            onClick={handleOrder}
+            style={{
+              width: '80%',
+              background: '#3f51b5',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '7px',
+              padding: '12px 0',
+              fontSize: '1.1rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+              transition: 'background 0.2s',
+            }}
+          >
+            PLACE ORDER
+          </button>
+        </div>
       </div>
     </div>
   );
