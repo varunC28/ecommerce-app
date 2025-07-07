@@ -112,39 +112,43 @@ function OrderDetails({ selectedAddress }) {
   };
 
   return (
-    <div className="place-order-container">
-      <div className="place-order-card">
-        <div className="product-details">
-          <div className="place-order-title">{product?.name}</div>
-          <div className="place-order-label">Quantity: <b>{quantity}</b></div>
-          <div className="place-order-label">Category: <b>{product?.category}</b></div>
-          <div style={{marginTop: '10px'}}>{product?.description}</div>
-          <div className="place-order-price">Total Price : ₹ {product?.price * quantity}</div>
+    <>
+      <div className="U-section">
+        <span style={{ fontWeight: 500 }}>Items</span>
+        <hr />
+        <span style={{ fontWeight: 500 }}>Select Address</span>
+        <hr />
+        <span style={{ fontWeight: 500 }}>Confirm Order</span>
+      </div>
+      <div className="order-details-container">
+        <div className="L-section">
+          <div style={{ fontWeight: 700, fontSize: '2rem', marginBottom: 10 }}>{product?.name}</div>
+          <div>Quantity: <b>{quantity}</b></div>
+          <div>Category: <b>{product?.category}</b></div>
+          <div style={{ margin: '10px 0' }}>{product?.description}</div>
+          <div style={{ color: '#e53935', fontWeight: 700, fontSize: '1.3rem', marginTop: 10 }}>
+            Total Price : $ {product ? (product.price * quantity) : ''}
+          </div>
         </div>
-        <div className="address-details">
-          <div className="place-order-title">Address Details :</div>
-          <div className="place-order-label">{address?.name}</div>
-          <div className="place-order-label">Contact Number: {address?.contactNumber}</div>
+        <div className="R-section">
+          <div style={{ fontWeight: 700, fontSize: '1.5rem', marginBottom: 10 }}>Address Details :</div>
+          <div style={{ fontWeight: 500 }}>{address?.name}</div>
+          <div>Contact Number: {address?.contactNumber}</div>
           <div>{address?.street}, {address?.city}</div>
           <div>{address?.state}</div>
-          <div>{address?.zipCode}</div>
+          <div>{address?.zipcode}</div>
         </div>
       </div>
-      <div className="place-order-btn-row">
-        <button onClick={goBack} className="back-button">
-          Back
-        </button>
-        <button onClick={handleConfirmOrder} className="confirm-button">
-          Confirm Order
-        </button>
+      <div className="place-order-buttons">
+        <button onClick={goBack}>BACK</button>
+        <button onClick={handleConfirmOrder}>PLACE ORDER</button>
       </div>
-
       {successMessage && (
         <div className="success-message">
           {successMessage}
         </div>
       )}
-    </div>
+    </>
   );
 }
 
