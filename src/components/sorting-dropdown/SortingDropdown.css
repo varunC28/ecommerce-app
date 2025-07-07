@@ -1,13 +1,20 @@
-#sorting-dropdown {
-    width: 200px;
-    min-width: 200px;
-}
-
 .sorting-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0;
+  display: flex;
+  align-items: center;
+  margin: 0 0 30px 60px;
+}
+#sorting-dropdown-label {
+  margin-right: 12px;
+  font-size: 1.05rem;
+  color: #333;
+}
+#sorting-dropdown {
+  width: 220px;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  font-size: 1rem;
+  margin-left: 8px;
 }
 
 .sorting-container .MuiFormControl-root {

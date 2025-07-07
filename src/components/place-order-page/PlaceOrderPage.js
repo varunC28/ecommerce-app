@@ -96,43 +96,25 @@ function OrderDetails({ selectedAddress }) {
   };
 
   return (
-    <div className="order-details-container">
-      <div className="order-header">
-        <h2>Confirm Order</h2>
-        <p>Review your order details before confirming</p>
-      </div>
-
-      {product && (
+    <div className="place-order-container">
+      <div className="place-order-card">
         <div className="product-details">
-          <h3>Product Details</h3>
-          <div className="product-info">
-            <img src={product.imageUrl} alt={product.name} className="product-image" />
-            <div className="product-text">
-              <h4>{product.name}</h4>
-              <p>Category: {product.category}</p>
-              <p>Manufacturer: {product.manufacturer}</p>
-              <p>Price: ${product.price}</p>
-              <p>Quantity: {quantity}</p>
-              <p>Total: ${(product.price * quantity).toFixed(2)}</p>
-            </div>
-          </div>
+          <div className="place-order-title">{product?.name}</div>
+          <div className="place-order-label">Quantity: <b>{quantity}</b></div>
+          <div className="place-order-label">Category: <b>{product?.category}</b></div>
+          <div style={{marginTop: '10px'}}>{product?.description}</div>
+          <div className="place-order-price">Total Price : ₹ {product?.price * quantity}</div>
         </div>
-      )}
-
-      {address && (
         <div className="address-details">
-          <h3>Delivery Address</h3>
-          <div className="address-info">
-            <p><strong>{address.name}</strong></p>
-            <p>{address.street}</p>
-            <p>{address.city}, {address.state} {address.zipcode}</p>
-            <p>Contact: {address.contactNumber}</p>
-            {address.landmark && <p>Landmark: {address.landmark}</p>}
-          </div>
+          <div className="place-order-title">Address Details :</div>
+          <div className="place-order-label">{address?.name}</div>
+          <div className="place-order-label">Contact Number: {address?.contactNumber}</div>
+          <div>{address?.street}, {address?.city}</div>
+          <div>{address?.state}</div>
+          <div>{address?.zipCode}</div>
         </div>
-      )}
-
-      <div className="order-actions">
+      </div>
+      <div className="place-order-btn-row">
         <button onClick={goBack} className="back-button">
           Back
         </button>
