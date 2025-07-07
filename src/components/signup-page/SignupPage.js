@@ -14,6 +14,7 @@ function SignUpPage() {
     conpwd: "",
     contact: "",
   });
+  const [isAdmin, setIsAdmin] = useState(false);
   const [logged, setLogged] = useState(0);
   const navigate = useNavigate();
   const ecommerceurl = apiConfig.apiBaseUrl + "/auth";
@@ -88,7 +89,7 @@ function SignUpPage() {
           firstName: formData.fname,
           lastName: formData.lname,
           contactNumber: formData.contact,
-          role: ["USER"],
+          role: isAdmin ? ["admin"] : ["USER"],
         }),
       });
       if (!response.ok) {
@@ -169,6 +170,19 @@ function SignUpPage() {
             onChange={handleChange}
             required
           />
+
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+            <input
+              type="checkbox"
+              id="admin-checkbox"
+              checked={isAdmin}
+              onChange={(e) => setIsAdmin(e.target.checked)}
+              style={{ marginRight: '8px' }}
+            />
+            <label htmlFor="admin-checkbox" style={{ fontSize: '14px', color: '#666' }}>
+              Create as Admin User (for testing purposes)
+            </label>
+          </div>
 
           <button type="button" onClick={handleSignUp}>
             SIGN UP
