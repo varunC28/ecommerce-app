@@ -230,7 +230,7 @@ function AddressDetails() {
             value={selectedAddress}
             onChange={handleAddress}
             className="address-select"
-            style={{ width: '415px', marginBottom: '20px', height: '40px' }}
+            style={{ width: '400px', marginBottom: '20px', height: '40px' }}
           >
             <option value="">Select an address</option>
             {options.map((option) => (
