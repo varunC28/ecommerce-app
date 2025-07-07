@@ -125,6 +125,10 @@ function AddressDetails() {
       alert("Enter zipcode");
       return false;
     }
+    if (address.landmark.trim() === "") {
+      alert("Enter landmark");
+      return false;
+    }
     return true;
   };
   const handleSaveAddress = async () => {
@@ -149,8 +153,8 @@ function AddressDetails() {
         landmark: address.landmark,
         street: address.street,
         state: address.state,
-        zipCode: address.zipCode,
-        user: localStorage.getItem("USERID"),
+        zipCode: address.zipCode
+        // user: localStorage.getItem("USERID"), // REMOVED
       };
       const headers = {
         "Content-Type": "application/json",
@@ -207,10 +211,6 @@ function AddressDetails() {
       <div className="address-container" style={{ width: '100%', maxWidth: 600, margin: '0 auto' }}>
         {errorMessage && <div style={{ color: 'red', marginBottom: 10 }}>{errorMessage}</div>}
         {successMessage && <div style={{ color: 'green', marginBottom: 10 }}>{successMessage}</div>}
-        <div className="address-header">
-          <h2>Delivery Address</h2>
-          <p>Select an existing address or add a new one</p>
-        </div>
 
         <div className="existing-addresses">
           <select
@@ -311,7 +311,7 @@ function AddressDetails() {
         </div>
 
         {/* Move next-button below Save Address and center it */}
-        <div className="next-button" style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '10px' }}>
+        <div className="next-button" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '415px', margin: '10px auto 0 auto', gap: '20px' }}>
           <button style={{ backgroundColor: 'white', color: 'black', width: '120px' }} onClick={goBack}>
             BACK
           </button>
