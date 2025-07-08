@@ -94,36 +94,31 @@ const ProductCard = ({product,id,onDelete}) => {
 
   return (
     <>
-      <Card className="product-card">
+      <Card className="card">
         <CardContent>
-          <div className="product-image-container">
+          <div className="image">
             <img
               src={imageUrl || "https://via.placeholder.com/300x200?text=No+Image"}
               alt={name}
-              className="product-image"
+              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
               onError={e => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/300x200?text=No+Image"; }}
             />
           </div>
-          <Typography variant="h6" component="h2" className="product-name">
-            {name}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" className="product-description">
-            {description}
-          </Typography>
-          <Typography variant="h6" color="primary" className="product-price">
-            ${price}
-          </Typography>
-          
-          <div className="product-actions">
+          <div className="name-price">
+            <span className="name">{name}</span>
+            <span>${price}</span>
+          </div>
+          <div className="name-price-description">
+            <div className="description">{description}</div>
+          </div>
+          <div className="buttons">
             <Button
               variant="contained"
               color="primary"
               onClick={handleBuyClick}
-              className="buy-button"
             >
               Buy Now
             </Button>
-            
             {isAdmin && (
               <>
                 <Button
@@ -131,7 +126,6 @@ const ProductCard = ({product,id,onDelete}) => {
                   color="primary"
                   onClick={handleEditClick}
                   startIcon={<Edit />}
-                  className="edit-button"
                 >
                   Edit
                 </Button>
@@ -140,7 +134,6 @@ const ProductCard = ({product,id,onDelete}) => {
                   color="error"
                   onClick={() => handleDeleteClick(product)}
                   startIcon={<Delete />}
-                  className="delete-button"
                 >
                   Delete
                 </Button>
