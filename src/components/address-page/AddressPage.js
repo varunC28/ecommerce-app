@@ -211,7 +211,7 @@ function AddressDetails() {
   return (
     <>
       <br />
-
+      <div className="address-details-container">
         {/* Error and Success Messages */}
         {errorMessage && (
           <Snackbar open={!!errorMessage} autoHideDuration={6000} onClose={() => setErrorMessage("")}> 
