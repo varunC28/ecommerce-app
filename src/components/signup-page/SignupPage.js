@@ -171,18 +171,7 @@ function SignUpPage() {
             required
           />
 
-          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-            <input
-              type="checkbox"
-              id="admin-checkbox"
-              checked={isAdmin}
-              onChange={(e) => setIsAdmin(e.target.checked)}
-              style={{ marginRight: '8px' }}
-            />
-            <label htmlFor="admin-checkbox" style={{ fontSize: '14px', color: '#666' }}>
-              Create as Admin User (for testing purposes)
-            </label>
-          </div>
+          {/* Removed admin checkbox and label */}
 
           <button type="button" onClick={handleSignUp}>
             SIGN UP
@@ -190,6 +179,9 @@ function SignUpPage() {
           <Link to="/login" id="login-link">
             Already have an account? Sign in
           </Link>
+          <div style={{ fontSize: '12px', color: '#888', marginTop: '8px' }}>
+            For testing purpose username : user@test.com<br />password : User123!
+          </div>
         </div>
       </form>
 
