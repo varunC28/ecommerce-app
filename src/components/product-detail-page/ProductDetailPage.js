@@ -40,27 +40,17 @@ function ProductDetailsPage() {
 
   return (
     <div className="product-details-container">
-      <div className="product-image-section">
+      <div className="product-image-container">
         <img
           src={product.imageUrl || "https://via.placeholder.com/300x200?text=No+Image"}
           alt={product.name}
-          className="product-detail-image"
           onError={e => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/300x200?text=No+Image"; }}
         />
       </div>
       <div className="product-info-container">
-        <div style={{ display: 'flex', alignItems: 'center', marginBottom: 16 }}>
+        <div className="name-quantity">
           <h2 style={{ margin: 0, fontWeight: 700 }}>{product.name}</h2>
-          <span style={{
-            background: '#3f51b5',
-            color: '#fff',
-            borderRadius: '20px',
-            padding: '6px 18px',
-            marginLeft: 18,
-            fontWeight: 500,
-            fontSize: '1rem',
-            display: 'inline-block',
-          }}>
+          <span>
             Available Quantity: {product.availableItems}
           </span>
         </div>
@@ -73,7 +63,7 @@ function ProductDetailsPage() {
         <div style={{ marginBottom: 18, color: '#e53935', fontWeight: 400, fontSize: '1.3rem' }}>
           $ {product.price}
         </div>
-        <div className="input-quantity" style={{ marginBottom: 18, width: '100%' }}>
+        <div className="input-quantity">
           <input
             type="number"
             min="1"
@@ -81,16 +71,6 @@ function ProductDetailsPage() {
             value={quantity}
             onChange={e => setQuantity(e.target.value)}
             placeholder="Enter Quantity"
-            style={{
-              border: '2px solid lightgray',
-              borderRadius: '5px',
-              padding: '8px',
-              width: '250px',
-              height: '30px',
-              fontSize: '1.1rem',
-              marginBottom: 10,
-              outline: 'none',
-            }}
           />
         </div>
         <button

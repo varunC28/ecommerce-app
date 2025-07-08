@@ -32,8 +32,9 @@
   .description {
     padding: 10px;
     color: darkgray;
-    margin-left: 6px !important;
-  }
+    margin-left: 0 !important;
+    text-align: left;
+}
   
   .buttons {
     display: flex;
@@ -43,7 +44,10 @@
     justify-content: space-between;
     width: 100%;
     padding: 0px 5px 0px 5px;
-  }
+}
+.buttons button:first-child {
+    margin-bottom: 8px;
+}
 
   .name{
     max-width: 170px;
