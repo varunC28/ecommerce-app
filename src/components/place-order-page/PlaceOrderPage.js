@@ -113,13 +113,6 @@ function OrderDetails({ selectedAddress }) {
 
   return (
     <>
-      <div className="U-section">
-        <span style={{ fontWeight: 500 }}>Items</span>
-        <hr />
-        <span style={{ fontWeight: 500 }}>Select Address</span>
-        <hr />
-        <span style={{ fontWeight: 500 }}>Confirm Order</span>
-      </div>
       <div className="order-details-container">
         <div className="L-section">
           <div style={{ fontWeight: 700, fontSize: '2rem', marginBottom: 10 }}>{product?.name}</div>
