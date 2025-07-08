@@ -51,7 +51,8 @@
     color: darkgray;
     margin-left: 0 !important;
     height: 48px;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     display: block;
     text-align: left;
   }
