@@ -8,7 +8,7 @@
 
 .L-section {
     border-right: 1px solid lightgray;
-    padding: 30px 40px 30px 30px;
+    padding: 20px 30px 20px 30px;
     flex: 2 1 0%;
     max-width: 900px;
     line-height: 2.1;
@@ -17,6 +17,7 @@
 .R-section {
     padding: 20px 30px 20px 30px;
     flex: 1 1 0%;
+    line-height: 2.1;
 }
 
 .place-order-buttons{
@@ -31,26 +32,13 @@
     color: white;
     border: none;
     border-radius: 5px;
-    width: 415px;
-    height: 40px;
+    width: 120px;
+    height: 23px;
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
     transition: background 0.2s;
     padding: 0;
-}
-.U-section{
-    display:flex;
-    height:50px;
-    margin: 20px 45px 20px 45px;
-    align-items: center;
-    justify-content: center;
-    margin-top: 50px;
-    line-height: 2.1;
-}
-.U-section i,hr,span{
-    margin-right: 10px ;
-    
 }
 hr{
     width: 400px;

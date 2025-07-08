@@ -47,12 +47,13 @@
   }
 
   .product-description {
-    padding: 10px;
+    padding: 10px 10px 10px 0;
     color: darkgray;
-    margin-left: 6px !important;
+    margin-left: 0 !important;
     height: 48px;
     overflow: hidden;
     display: block;
+    text-align: left;
   }
   
   .buttons {
