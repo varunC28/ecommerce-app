@@ -148,6 +148,9 @@ function LoginPage() {
           <Link to="/signup" id="signup-link">
             Don't have an account? Sign Up
           </Link>
+          <div style={{ fontSize: '12px', color: '#888', marginTop: '8px' }}>
+            For testing purpose<br />username : user@test.com<br />password : User123!
+          </div>
         </div>
       </form>
 

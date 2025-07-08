@@ -113,22 +113,33 @@ function OrderDetails({ selectedAddress }) {
 
   return (
     <>
+    <br />
+    <br />
       <div className="order-details-container">
         <div className="L-section">
           <div style={{ fontWeight: 700, fontSize: '2rem', marginBottom: 10 }}>{product?.name}</div>
+          <br />
           <div>Quantity: <b>{quantity}</b></div>
+          <br />
           <div>Category: <b>{product?.category}</b></div>
+          <br />
           <div style={{ margin: '10px 0' }}>{product?.description}</div>
+          <br />
           <div style={{ color: '#e53935', fontWeight: 700, fontSize: '1.3rem', marginTop: 10 }}>
             Total Price : $ {product ? (product.price * quantity) : ''}
           </div>
         </div>
         <div className="R-section">
           <div style={{ fontWeight: 700, fontSize: '1.5rem', marginBottom: 10 }}>Address Details :</div>
+          <br />
           <div style={{ fontWeight: 500 }}>{address?.name}</div>
+          <br />
           <div>Contact Number: {address?.contactNumber}</div>
+          <br />
           <div>{address?.street}, {address?.city}</div>
+          <br />
           <div>{address?.state}</div>
+          <br />
           <div>{address?.zipcode}</div>
         </div>
       </div>

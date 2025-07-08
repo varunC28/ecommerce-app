@@ -34,7 +34,6 @@ Add these environment variables in Render dashboard:
 
 ```
 MONGODB_DATABASE_URL=mongodb+srv://ecommerce-user:hevhor-6pizbo-boqjaD@ecommerceapp.nyp4w7x.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=EcommerceApp
-JWT_SECRET=y1/LaEwNkdwt64X7X+4iKiYG/06NaGHF+7K80P6Ukm4=
 JAVA_VERSION=11
 PORT=8080
 ```

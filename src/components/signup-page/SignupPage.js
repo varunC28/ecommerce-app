@@ -179,9 +179,7 @@ function SignUpPage() {
           <Link to="/login" id="login-link">
             Already have an account? Sign in
           </Link>
-          <div style={{ fontSize: '12px', color: '#888', marginTop: '8px' }}>
-            For testing purpose username : user@test.com<br />password : User123!
-          </div>
+          {/* Removed test credentials note from signup page */}
         </div>
       </form>
 
