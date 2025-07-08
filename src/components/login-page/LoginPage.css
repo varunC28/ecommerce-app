@@ -46,6 +46,8 @@
     margin-top: 10px;
     display: flex;
     justify-content:start;
+    display: block;
+    text-align: left;
   }
 
 .lock-logo {
@@ -62,4 +64,8 @@
 
 #signin-button {
   background-color: #3f51b5;
+}
+
+.login-container .form-container > div[style*='For testing purpose'] {
+  text-align: left;
 }
