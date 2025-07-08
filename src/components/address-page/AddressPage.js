@@ -210,47 +210,7 @@ function AddressDetails() {
 
   return (
     <>
-      <div className="address-details-container">
-        {/* Stepper UI */}
-        <div className="U-section" style={{ display: 'flex', alignItems: 'center', marginBottom: 30 }}>
-          <i
-            className="fa-solid fa-circle-check"
-            style={{ color: "#3f51b5", fontSize: "20px", marginLeft: "15px" }}
-          ></i>
-          <span style={{ marginLeft: 8 }}>Items</span>
-          <div style={{ width: 40, margin: '0 8px' }}><hr /></div>
-          <span
-            style={{
-              backgroundColor: "#3f51b5",
-              color: "white",
-              padding: "0.5px",
-              height: "20px",
-              width: "20px",
-              borderRadius: "50%",
-              textAlign: "center",
-              display: 'inline-block',
-            }}
-          >
-            2
-          </span>
-          <span style={{ marginLeft: 8 }}>Select Address</span>
-          <div style={{ width: 40, margin: '0 8px' }}><hr /></div>
-          <span
-            style={{
-              backgroundColor: "darkgray",
-              color: "white",
-              padding: "0.5px",
-              height: "20px",
-              width: "20px",
-              borderRadius: "50%",
-              textAlign: "center",
-              display: 'inline-block',
-            }}
-          >
-            3
-          </span>
-          <span style={{ color: "darkgray", marginLeft: 8 }}>Confirm Order</span>
-        </div>
+      <br />
 
         {/* Error and Success Messages */}
         {errorMessage && (
