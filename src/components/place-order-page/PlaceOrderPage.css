@@ -8,19 +8,21 @@
 
 .L-section {
     border-right: 1px solid lightgray;
-    padding: 20px;
+    padding: 30px 40px 30px 30px;
+    flex: 2 1 0%;
     max-width: 900px;
 }
 
 .R-section {
-  
-    padding: 20px;
+    padding: 20px 30px 20px 30px;
+    flex: 1 1 0%;
 }
 
 .place-order-buttons{
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    gap: 20px;
 }
 
 .place-order-buttons button {
@@ -28,7 +30,11 @@
     color: white;
     border: none;
     border-radius: 5px;
-    padding: 10px;
+    padding: 10px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
 }
 .U-section{
     display:flex;

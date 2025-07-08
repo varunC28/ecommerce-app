@@ -71,7 +71,7 @@ function ProductDetailsPage() {
           <b>Description:</b> {product.description}
         </div>
         <div style={{ marginBottom: 18, color: '#e53935', fontWeight: 400, fontSize: '1.3rem' }}>
-          ₹ {product.price}
+          $ {product.price}
         </div>
         <div className="input-quantity" style={{ marginBottom: 18, width: '100%' }}>
           <input
