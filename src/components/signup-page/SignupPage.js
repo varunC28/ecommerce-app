@@ -183,11 +183,6 @@ function SignUpPage() {
         </div>
       </form>
 
-      <div className="footer-copyright">
-        <p>
-          Copyright ©️ <a href="https://www.upgrad.com">upGrad</a> 2021.
-        </p>
-      </div>
     </div>
   );
 }

@@ -148,17 +148,12 @@ function LoginPage() {
           <Link to="/signup" id="signup-link">
             Don't have an account? Sign Up
           </Link>
+          <br />
           <div style={{ fontSize: '12px', color: '#888', textAlign: 'left' }}>
             For testing purpose<br />Username : user@test.com<br />Password : User123!
           </div>
         </div>
       </form>
-
-      <div className="footer-copyright">
-        <p>
-          Copyright ©️ <a href="https://www.upgrad.com">upGrad</a> 2021.
-        </p>
-      </div>
     </div>
   );
 }
