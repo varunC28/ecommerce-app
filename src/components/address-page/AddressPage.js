@@ -209,30 +209,68 @@ function AddressDetails() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#fafbfc' }}>
-      <div className="address-container" style={{ width: '100%', maxWidth: 400, margin: '0 auto' }}>
-        {/* Error message */}
-        {errorMessage && <div style={{ color: 'red', marginBottom: 10 }}>{errorMessage}</div>}
-        {/* Success Snackbar */}
-        <Snackbar
-          open={!!successMessage}
-          autoHideDuration={4000}
-          onClose={() => setSuccessMessage("")}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        >
-          <Alert onClose={() => setSuccessMessage("")} severity="success" sx={{ width: '100%' }}>
-            {successMessage}
-          </Alert>
-        </Snackbar>
-
-        <div className="existing-addresses">
-          <select
-            value={selectedAddress}
-            onChange={handleAddress}
-            className="address-select"
-            style={{ width: '400px', marginBottom: '20px', height: '40px' }}
+    <>
+      <div className="address-details-container">
+        {/* Stepper UI */}
+        <div className="U-section" style={{ display: 'flex', alignItems: 'center', marginBottom: 30 }}>
+          <i
+            className="fa-solid fa-circle-check"
+            style={{ color: "#3f51b5", fontSize: "20px", marginLeft: "15px" }}
+          ></i>
+          <span style={{ marginLeft: 8 }}>Items</span>
+          <div style={{ width: 40, margin: '0 8px' }}><hr /></div>
+          <span
+            style={{
+              backgroundColor: "#3f51b5",
+              color: "white",
+              padding: "0.5px",
+              height: "20px",
+              width: "20px",
+              borderRadius: "50%",
+              textAlign: "center",
+              display: 'inline-block',
+            }}
           >
-            <option value="">Select an address</option>
+            2
+          </span>
+          <span style={{ marginLeft: 8 }}>Select Address</span>
+          <div style={{ width: 40, margin: '0 8px' }}><hr /></div>
+          <span
+            style={{
+              backgroundColor: "darkgray",
+              color: "white",
+              padding: "0.5px",
+              height: "20px",
+              width: "20px",
+              borderRadius: "50%",
+              textAlign: "center",
+              display: 'inline-block',
+            }}
+          >
+            3
+          </span>
+          <span style={{ color: "darkgray", marginLeft: 8 }}>Confirm Order</span>
+        </div>
+
+        {/* Error and Success Messages */}
+        {errorMessage && (
+          <Snackbar open={!!errorMessage} autoHideDuration={6000} onClose={() => setErrorMessage("")}> 
+            <Alert onClose={() => setErrorMessage("")} severity="error">{errorMessage}</Alert>
+          </Snackbar>
+        )}
+        {successMessage && (
+          <Snackbar open={!!successMessage} autoHideDuration={6000} onClose={() => setSuccessMessage("")}> 
+            <Alert onClose={() => setSuccessMessage("")} severity="success">{successMessage}</Alert>
+          </Snackbar>
+        )}
+
+        {/* Select Address Dropdown */}
+        <div className="select-address-div">
+          <span>Select Address</span>
+          <select name="address" className="select-address" onChange={handleAddress} value={selectedAddress}>
+            <option key="" value="">
+              Select
+            </option>
             {options.map((option) => (
               <option key={option.id} value={option.id}>
                 {option.label}
@@ -241,99 +279,95 @@ function AddressDetails() {
           </select>
         </div>
 
-        <div className="new-address-form">
-          <h3>Add New Address</h3>
-          <div className="form-fields">
-            <div className="input-field">
-              <input
-                placeholder="Name *"
-                type="text"
-                name="name"
-                value={address.name}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="input-field">
-              <input
-                placeholder="Contact Number *"
-                type="text"
-                name="contactNumber"
-                value={address.contactNumber}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="input-field">
-              <input
-                placeholder="Street *"
-                type="text"
-                name="street"
-                value={address.street}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="input-field">
-              <input
-                placeholder="City *"
-                type="text"
-                name="city"
-                value={address.city}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="input-field">
-              <input
-                placeholder="State *"
-                type="text"
-                name="state"
-                value={address.state}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="input-field">
-              <input
-                placeholder="Landmark"
-                type="text"
-                name="landmark"
-                value={address.landmark}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="input-field">
-              <input
-                placeholder="Zip Code *"
-                type="text"
-                name="zipcode"
-                value={address.zipcode}
-                onChange={handleChange}
-                required
-              />
-            </div>
+        <h3>-OR-</h3>
+        <h2>Add Address</h2>
 
-            <div className="input-field">
-              <button type="button" onClick={handleSaveAddress} style={{ width: '415px', height: '40px' }}>
-                Save Address
-              </button>
-            </div>
-          </div>
+        {/* Address Form */}
+        <div className="input-field">
+          <input
+            placeholder="Name *"
+            type="text"
+            name="name"
+            value={address.name}
+            onChange={handleChange}
+            required
+          />
         </div>
-
-        {/* Move next-button below Save Address and center it */}
-        <div className="next-button" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '415px', margin: '10px auto 0 auto', gap: '20px' }}>
-          <button style={{ backgroundColor: 'white', color: 'black', width: '120px' }} onClick={goBack}>
+        <div className="input-field">
+          <input
+            placeholder="Contact Number *"
+            type="text"
+            name="contactNumber"
+            value={address.contactNumber}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="input-field">
+          <input
+            placeholder="Street *"
+            type="text"
+            name="street"
+            value={address.street}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="input-field">
+          <input
+            placeholder="City *"
+            type="text"
+            name="city"
+            value={address.city}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="input-field">
+          <input
+            placeholder="State *"
+            type="text"
+            name="state"
+            value={address.state}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="input-field">
+          <input
+            placeholder="Landmark"
+            type="text"
+            name="landmark"
+            value={address.landmark}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="input-field">
+          <input
+            placeholder="Zip Code *"
+            type="text"
+            name="zipcode"
+            value={address.zipcode}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="input-field">
+          <button type="button" onClick={handleSaveAddress}>
+            Save Address
+          </button>
+        </div>
+        <div className="next-button">
+          <button style={{ backgroundColor: "white", color: "black" }} onClick={goBack}>
             BACK
           </button>
-          <button type="button" style={{ width: '120px' }} onClick={handlenextclick}>
+          <button type="button" onClick={handlenextclick}>
             NEXT
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -54,6 +54,9 @@ function ProductDetailsPage() {
             Available Quantity: {product.availableItems}
           </span>
         </div>
+        <br />
+        <br />
+        <br />
         <div style={{ marginBottom: 10, fontSize: '1.1rem' }}>
           <b>Category:</b> {product.category}
         </div>
@@ -73,6 +76,8 @@ function ProductDetailsPage() {
             placeholder="Enter Quantity"
           />
         </div>
+        <br />
+        <br />
         <button
           onClick={handleOrder}
           className="place-order-button"
