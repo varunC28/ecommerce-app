@@ -95,20 +95,7 @@ function ProductDetailsPage() {
         </div>
         <button
           onClick={handleOrder}
-          style={{
-            width: '200px',
-            background: '#3f51b5',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '7px',
-            padding: '12px 0',
-            fontSize: '1.1rem',
-            fontWeight: 600,
-            cursor: 'pointer',
-            transition: 'background 0.2s',
-            marginLeft: 0,
-            display: 'block',
-          }}
+          className="place-order-button"
         >
           PLACE ORDER
         </button>

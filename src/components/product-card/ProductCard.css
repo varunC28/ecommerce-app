@@ -45,6 +45,15 @@
     color: darkgray;
     margin-left: 6px !important;
   }
+
+  .product-description {
+    padding: 10px;
+    color: darkgray;
+    margin-left: 6px !important;
+    height: 48px;
+    overflow: hidden;
+    display: block;
+  }
   
   .buttons {
     display: flex;
