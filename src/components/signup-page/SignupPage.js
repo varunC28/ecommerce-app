@@ -179,10 +179,8 @@ function SignUpPage() {
           <Link to="/login" id="login-link">
             Already have an account? Sign in
           </Link>
-          {/* Removed test credentials note from signup page */}
         </div>
       </form>
-
     </div>
   );
 }

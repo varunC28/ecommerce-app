@@ -26,6 +26,16 @@
   background-color: #5f6cb0;
   color: white !important;
 }
+@media (max-width: 1024px) {
+  .search-bar {
+    width: 60%;
+  }
+}
+@media (max-width: 768px) {
+  .search-bar {
+    width: 90%;
+  }
+}
 
 .home-button,
 .add-products-button {
