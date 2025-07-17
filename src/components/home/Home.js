@@ -48,14 +48,26 @@ const Home = () => {
 
   useEffect(() => {
     if (name && name !== "all") {
-      const filteredProducts = products.filter((product) =>
-        product.category.toLowerCase() === name.toLowerCase()
-      );
-      setDisplayProducts(filteredProducts);
+      // Check if current path is /search/:name or /category/:name
+      if (location.pathname.startsWith("/search/")) {
+        // Filter by product name (case-insensitive, partial match)
+        const filteredProducts = products.filter((product) =>
+          product.name.toLowerCase().includes(name.toLowerCase())
+        );
+        setDisplayProducts(filteredProducts);
+      } else if (location.pathname.startsWith("/category/")) {
+        // Filter by category (case-insensitive, exact match)
+        const filteredProducts = products.filter((product) =>
+          product.category.toLowerCase() === name.toLowerCase()
+        );
+        setDisplayProducts(filteredProducts);
+      } else {
+        setDisplayProducts(products);
+      }
     } else {
       setDisplayProducts(products);
     }
-  }, [name, products]);
+  }, [name, products, location.pathname]);
 
   const handleSort = (sortType) => {
     let sortedProducts = [...displayProducts];
