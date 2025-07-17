@@ -29,8 +29,10 @@ public class AddressResource {
 
     @GetMapping
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
-    public ResponseEntity<List<AddressDTO>> getAllAddresss() {
-        return ResponseEntity.ok(addressService.findAll());
+    public ResponseEntity<List<AddressDTO>> getAllAddresss(Authentication authentication) {
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        String userId = userDetails.getId();
+        return ResponseEntity.ok(addressService.findAllByUser(userId));
     }
 
     @GetMapping("/{id}")

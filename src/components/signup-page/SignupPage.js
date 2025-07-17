@@ -16,6 +16,7 @@ function SignUpPage() {
   });
   const [isAdmin, setIsAdmin] = useState(false);
   const [logged, setLogged] = useState(0);
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const ecommerceurl = apiConfig.apiBaseUrl + "/auth";
 
@@ -31,50 +32,41 @@ function SignUpPage() {
     return re.test(email);
   }
 
-  const handleSignUp = async () => {
+  const validateForm = () => {
+    const newErrors = {};
     if (formData.fname.trim() === "") {
-      alert("Enter First Name");
-      //document.getElementById("username").focus();
-      return;
+      newErrors.fname = "First name is required.";
     }
     if (formData.lname.trim() === "") {
-      alert("Enter Last Name");
-      //document.getElementById("username").focus();
-      return;
+      newErrors.lname = "Last name is required.";
     }
-
     if (formData.email.trim() === "") {
-      alert("Enter Email ID");
-      //document.getElementById("username").focus();
-      return;
-    }
-    if (!validateEmail(formData.email.trim())) {
-      alert("Enter Proper Email ID");
-      return;
+      newErrors.email = "Email is required.";
+    } else if (!validateEmail(formData.email.trim())) {
+      newErrors.email = "Enter a valid email address.";
     }
     if (formData.pwd.trim() === "") {
-      alert("Enter Password");
-      //document.getElementById("username").focus();
-      return;
-    }
-    var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
-    if (!passwordRegex.test(formData.pwd.trim())) {
-      alert("Enter Proper Password");
-      return;
+      newErrors.pwd = "Password is required.";
+    } else {
+      var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+      if (!passwordRegex.test(formData.pwd.trim())) {
+        newErrors.pwd = "Password must be at least 8 characters, include an uppercase letter, a number, and a special character.";
+      }
     }
     if (formData.conpwd.trim() === "") {
-      alert("Enter Confirm Password");
-      //document.getElementById("username").focus();
-      return;
-    }
-    if (formData.conpwd.trim() !== formData.pwd.trim()) {
-      alert("Password and Confirm password is not matching.");
-      //document.getElementById("username").focus();
-      return;
+      newErrors.conpwd = "Confirm password is required.";
+    } else if (formData.conpwd.trim() !== formData.pwd.trim()) {
+      newErrors.conpwd = "Passwords do not match.";
     }
     if (formData.contact.trim() === "" || formData.contact.trim().length !== 10) {
-      alert("Enter Valid Contact Number");
-      //document.getElementById("username").focus();
+      newErrors.contact = "Contact number must be 10 digits.";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSignUp = async () => {
+    if (!validateForm()) {
       return;
     }
     try {
@@ -125,6 +117,7 @@ function SignUpPage() {
             value={formData.fname}
             onChange={handleChange}
           />
+          {errors.fname && <div className="error-message">{errors.fname}</div>}
           <input
             type="text"
             name="lname"
@@ -134,6 +127,7 @@ function SignUpPage() {
             value={formData.lname}
             onChange={handleChange}
           />
+          {errors.lname && <div className="error-message">{errors.lname}</div>}
           <input
             type="email"
             name="email"
@@ -143,6 +137,7 @@ function SignUpPage() {
             value={formData.email}
             onChange={handleChange}
           />
+          {errors.email && <div className="error-message">{errors.email}</div>}
           <input
             type="password"
             name="pwd"
@@ -152,6 +147,7 @@ function SignUpPage() {
             value={formData.pwd}
             onChange={handleChange}
           />
+          {errors.pwd && <div className="error-message">{errors.pwd}</div>}
           <input
             type="password"
             name="conpwd"
@@ -161,6 +157,7 @@ function SignUpPage() {
             onChange={handleChange}
             required
           />
+          {errors.conpwd && <div className="error-message">{errors.conpwd}</div>}
           <input
             type="number"
             name="contact"
@@ -170,6 +167,7 @@ function SignUpPage() {
             onChange={handleChange}
             required
           />
+          {errors.contact && <div className="error-message">{errors.contact}</div>}
 
           {/* Removed admin checkbox and label */}
 

@@ -14,6 +14,7 @@ function LoginPage() {
   const ecommerceurl = apiConfig.apiBaseUrl + "/auth";
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [sessionCleared, setSessionCleared] = useState(false);
 
   function validateEmail(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -101,6 +102,15 @@ function LoginPage() {
     }
   };
 
+  const handleClearSession = () => {
+    localStorage.clear();
+    // Clear cookies for the current domain
+    document.cookie.split(';').forEach(function(c) {
+      document.cookie = c.replace(/^ +/, '').replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/');
+    });
+    setSessionCleared(true);
+  };
+
   // address later - isLoggedIn and isAdmin is never used.
   useEffect(() => {
     if (logged === 1) {
@@ -152,6 +162,10 @@ function LoginPage() {
           <div style={{ fontSize: '12px', color: '#888', textAlign: 'left' }}>
             For testing purpose<br />Username : user@test.com<br />Password : User123!
           </div>
+          <button type="button" style={{marginTop: '16px', background: '#f44336', color: 'white', border: 'none', borderRadius: '4px', padding: '8px 16px', cursor: 'pointer'}} onClick={handleClearSession}>
+            Clear Session
+          </button>
+          {sessionCleared && <div style={{color: 'green', marginTop: '8px'}}>Session cleared. Please try logging in again.</div>}
         </div>
       </form>
     </div>

@@ -32,6 +32,13 @@ public class AddressService {
                 .collect(Collectors.toList());
     }
 
+    public List<AddressDTO> findAllByUser(String userId) {
+        final List<Address> addresss = addressRepository.findAllByUser_Id(userId);
+        return addresss.stream()
+                .map((address) -> mapToDTO(address, new AddressDTO()))
+                .collect(Collectors.toList());
+    }
+
     public AddressDTO get(final String id) {
         return addressRepository.findById(id)
                 .map(address -> mapToDTO(address, new AddressDTO()))
